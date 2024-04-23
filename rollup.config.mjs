@@ -7,19 +7,18 @@ import typescript from 'rollup-plugin-typescript2';
 export default {
   input: 'src/index.ts',
   plugins: [tsConfigPaths(), typescript()],
-  
+
   external: ['vitest'],
   output: [
     {
       format: 'cjs',
-      file: 'lib/index.js',
+      file: 'lib/index.cjs',
       sourcemap: true,
-      
     },
     {
       format: 'es',
       sourcemap: true,
-      file: 'lib/index.mjs',
+      file: 'lib/index.js',
     },
   ],
 };
