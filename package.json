@@ -1,5 +1,5 @@
 {
-  "name": "@bemedev/jest-extended",
+  "name": "@bemedev/vitest-extended",
   "version": "0.2.0",
   "description": "Extensions to build tests in jest",
   "main": "lib/index.js",
