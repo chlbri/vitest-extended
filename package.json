@@ -1,6 +1,6 @@
 {
   "name": "@bemedev/vitest-extended",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Extensions to build tests in jest",
   "type": "module",
   "main": "lib/index.js",
