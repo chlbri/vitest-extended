@@ -14,5 +14,10 @@ export default {
       sourcemap: true,
       file: 'lib/index.js',
     },
+    {
+      format: 'cjs',
+      sourcemap: true,
+      file: 'lib/index.cjs',
+    },
   ],
 };
