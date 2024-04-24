@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'vitest';
 import { z } from 'zod';
-import { Fc, TestReturn, useTFA } from '../index';
 import { transformZTF, type Any } from './zod';
+import { Fc, TestReturn } from '../types';
+import { useTFA } from '../acceptation';
 
 // #region Types
 type TFunc = ReturnType<typeof transformZTF<z.ZodString>>;

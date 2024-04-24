@@ -12,12 +12,18 @@ export default {
     {
       format: 'es',
       sourcemap: true,
-      file: 'lib/index.js',
+      preserveModulesRoot: 'src',
+      dir: `lib`,
+      preserveModules: true,
+      entryFileNames: '[name].js',
     },
     {
       format: 'cjs',
       sourcemap: true,
-      file: 'lib/index.cjs',
+      preserveModulesRoot: 'src',
+      dir: `lib`,
+      preserveModules: true,
+      entryFileNames: '[name].cjs',
     },
   ],
 };

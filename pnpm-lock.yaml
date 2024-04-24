@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@bemedev/test-extended':
-    specifier: ^0.2.1
-    version: 0.2.1
-
 devDependencies:
   '@typescript-eslint/eslint-plugin':
     specifier: ^7.7.0
@@ -74,10 +69,6 @@ packages:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
     dev: true
-
-  /@bemedev/test-extended@0.2.1:
-    resolution: {integrity: sha512-eadRnft8NajLX1abYABKKYpHwOhXpeN3XzyslicZ4BzypUJfc4gTA5Na+E0dXWVgXR3tRDbiN1MUb++kTJmDIQ==}
-    dev: false
 
   /@esbuild/aix-ppc64@0.20.2:
     resolution: {integrity: sha512-D+EBOJHXdNZcLJRBkhENNG8Wji2kgc9AZ9KiPr1JuZjsNtyHzrsfLRrY0tk2H2aoFu6RANO1y1iPPUCDYWkb5g==}
