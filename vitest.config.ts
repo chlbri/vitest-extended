@@ -1,10 +1,19 @@
-import tsconfigPaths from 'vite-tsconfig-paths';
+import { aliasTs } from '@bemedev/vitest-alias';
 import { defineConfig } from 'vitest/config';
+import tsconfig from './tsconfig.json';
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  plugins: [aliasTs(tsconfig as any)],
+
   test: {
-    // globals: true,
-    include: ['**/*.{test,spec}.?(c|m)[jt]s?(x)'],
+    environment: 'node',
+    globals: true,
+    coverage: {
+      enabled: true,
+      extension: 'ts',
+      all: true,
+      exclude: ['**/types.ts', '**/index.ts'],
+      provider: 'v8',
+    },
   },
 });
