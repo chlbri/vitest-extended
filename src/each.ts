@@ -5,7 +5,7 @@ import type { Fc, TestArgs, TestReturn } from './types';
 // #region Sync
 // #region Config
 function useEachCases<F extends Fc>(f: F, ...cases: TestArgs<F>) {
-  test.each(cases)(
+  test.concurrent.each(cases)(
     '%s',
     (_, args, expected) => {
       const value = f(...args);
@@ -64,7 +64,7 @@ function useEachAsyncCases<F extends Fc<any, Promise<any>>>(
   f: F,
   ...cases: TestArgs<F>
 ) {
-  test.each(cases)(
+  test.concurrent.each(cases)(
     '%s',
     async (_, args, expected) => {
       const value = await f(...args);
