@@ -11,8 +11,13 @@ export default defineConfig({
     coverage: {
       enabled: true,
       extension: 'ts',
+      include: [
+        'src/acceptation.ts',
+        'src/createTests.ts',
+        'src/each.ts',
+        'src/types.ts',
+      ],
       all: true,
-      exclude: ['**/types.ts', '**/index.ts'],
       provider: 'v8',
     },
   },

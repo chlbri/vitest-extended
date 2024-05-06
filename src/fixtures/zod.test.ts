@@ -1,7 +1,7 @@
 import { describe } from 'vitest';
+import { useEach, useEachAsync } from '../each';
 import { transformZTF, transformZTFAsync, type Any } from './zod';
 import { _useTFA, useWorkflow } from './zod.fixtures';
-import { useEach, useEachAsync } from '../index';
 
 describe('transformZTF', () => {
   _useTFA(transformZTF);
