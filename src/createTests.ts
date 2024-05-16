@@ -1,10 +1,11 @@
 import { describe } from 'vitest';
 import { useTFA } from './acceptation';
-import { useEachAsync } from './each';
+import { useEachAsync, type useEachCases } from './each';
 import type { Fc, TestArgs } from './types';
 
 /**
  * Creates tests for function in a better way
+ * NB : We use strict-equality, {@link useEachCases|see}
  * @param library The test library
  * @param f The function to test
  * @returns A test.each like function to tests many cases

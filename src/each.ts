@@ -4,12 +4,18 @@ import type { Fc, TestArgs, TestReturn } from './types';
 
 // #region Sync
 // #region Config
-function useEachCases<F extends Fc>(f: F, ...cases: TestArgs<F>) {
+export function useEachCases<F extends Fc>(f: F, ...cases: TestArgs<F>) {
   test.concurrent.each(cases)(
     '%s',
     (_, args, expected) => {
       const value = f(...args);
-      expect(value).toEqual(expected);
+      const checkArray = Array.isArray(value);
+      if (checkArray) {
+        return expect(value).toStrictEqual(
+          expect.arrayContaining(expected),
+        );
+      }
+      return expect(value).toStrictEqual(expected);
     },
     50,
   );
@@ -68,7 +74,13 @@ function useEachAsyncCases<F extends Fc<any, Promise<any>>>(
     '%s',
     async (_, args, expected) => {
       const value = await f(...args);
-      expect(value).toEqual(expected);
+      const checkArray = Array.isArray(value);
+      if (checkArray) {
+        return expect(value).toStrictEqual(
+          expect.arrayContaining(expected),
+        );
+      }
+      return expect(value).toStrictEqual(expected);
     },
     1000,
   );

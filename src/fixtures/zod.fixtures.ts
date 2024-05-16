@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
 import { z } from 'zod';
-import { transformZTF, type Any } from './zod';
-import { Fc, TestReturn } from '../types';
 import { useTFA } from '../acceptation';
+import { Fc, TestReturn } from '../types';
+import { transformZTF, type Any } from './zod';
 
 // #region Types
 type TFunc = ReturnType<typeof transformZTF<z.ZodString>>;
@@ -31,6 +31,18 @@ export const useWorkflow = (createTest: TT) => {
   });
 
   describe('#3 => enum ["PILE", "FACE"]', () => {
+    const useTest = createTest(z.enum(['PILE', 'FACE']));
+
+    useTest(
+      ['#1 => boolean fails', [true], false],
+      ['#2 => number fails', [5], false],
+      ['#3 => simple string fails', ['str'], false],
+      ['#4 => string PILE pass', ['PILE'], true],
+      ['#5=> string FACE pass', ['FACE'], true],
+    );
+  });
+
+  describe('#3 => Tuple ["PILE", "FACE"]', () => {
     const useTest = createTest(z.enum(['PILE', 'FACE']));
 
     useTest(

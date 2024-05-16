@@ -1,6 +1,6 @@
 {
   "name": "@bemedev/vitest-extended",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "description": "Extensions to build tests in jest",
   "type": "module",
   "main": "lib/index.js",
@@ -12,7 +12,7 @@
     "test": "pnpm run test:coverage --no-coverage",
     "test:coverage": "vitest run --passWithNoTests",
     "rollup": "rollup -c",
-    "ci": "pnpm run test && pnpm run lint && pnpm run build",
+    "ci": "pnpm run lint && pnpm run test && pnpm run build",
     "ci:online": "pnpm run config && pnpm run lint && pnpm run test && pnpm run build",
     "ci:admin": "pnpm run rm && pnpm run ci:online",
     "test:watch": "vitest --passWithNoTests",
