@@ -1,6 +1,6 @@
 import { describe } from 'vitest';
-import { useEachAsync } from '../each';
-import { TestArgs } from '../types';
+import { useEachAsync } from './each';
+import { TestArgs } from './types';
 import { sleep } from './sleep';
 
 const asyncF = (ms = 0) => sleep(ms).then(() => 1);

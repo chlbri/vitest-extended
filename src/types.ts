@@ -34,3 +34,5 @@ export type TestReturn<
   F extends Fc,
   A extends TestArgs<F>,
 > = A['length'] extends 0 ? (...tailArgs: TestArgs<F>) => void : void;
+
+export type TestDoneFunction = (context: () => boolean) => void;

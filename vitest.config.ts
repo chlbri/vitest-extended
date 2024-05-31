@@ -1,9 +1,11 @@
 import { aliasTs } from '@bemedev/vitest-alias';
+import { exclude } from '@bemedev/vitest-cov-exclude';
 import { defineConfig } from 'vitest/config';
+
 import tsconfig from './tsconfig.json';
 
 export default defineConfig({
-  plugins: [aliasTs(tsconfig as any)],
+  plugins: [aliasTs(tsconfig as any), exclude('**/index.ts')],
 
   test: {
     environment: 'node',
@@ -11,12 +13,6 @@ export default defineConfig({
     coverage: {
       enabled: true,
       extension: 'ts',
-      include: [
-        'src/acceptation.ts',
-        'src/createTests.ts',
-        'src/each.ts',
-        'src/types.ts',
-      ],
       all: true,
       provider: 'v8',
     },
