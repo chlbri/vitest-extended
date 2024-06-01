@@ -14,13 +14,15 @@ export const useDone = (ms = 0) => {
   return { done, testDone };
 };
 
+const min100 = (ms = 0) => Math.max(100, ms);
+
 // #region Preparation
 /* v8 ignore next 18 */
 const objectify = (
   options?: TestOptions | number,
 ): [TestOptions, number] => {
   const _timeout = getTimeout(options);
-  const timeout = _timeout + 10;
+  const timeout = _timeout + 100;
 
   let _options = { timeout };
   if (!(typeof options === 'number')) {
@@ -31,9 +33,9 @@ const objectify = (
 };
 
 const getTimeout = (options?: TestOptions | number) => {
-  if (options === undefined) return 10;
-  if (typeof options === 'number') return options;
-  return options?.timeout ?? 10;
+  if (options === undefined) return min100();
+  if (typeof options === 'number') return min100(options);
+  return min100(options?.timeout);
 };
 // #endregion
 
@@ -47,7 +49,7 @@ const getTimeout = (options?: TestOptions | number) => {
 export const doneTest = (
   invite: string,
   fn: TestDoneFunction,
-  options: number | TestOptions = 0,
+  options: number | TestOptions = 100,
 ) => {
   const [_options, ms] = objectify(options);
 
@@ -68,7 +70,7 @@ export const doneTest = (
 doneTest.fails = (
   invite: string,
   fn: TestDoneFunction,
-  options: number | TestOptions = 0,
+  options: number | TestOptions = 100,
 ) => {
   const [_options, ms] = objectify(options);
 
@@ -89,7 +91,7 @@ doneTest.fails = (
 doneTest.concurrent = (
   invite: string,
   fn: TestDoneFunction,
-  options: number | TestOptions = 0,
+  options: number | TestOptions = 100,
 ) => {
   const [_options, ms] = objectify(options);
 
