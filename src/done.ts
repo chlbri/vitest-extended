@@ -1,5 +1,5 @@
+import sleep from '@bemedev/sleep';
 import { expect, test, type TestOptions } from 'vitest';
-import { sleep } from './sleep';
 import type { TestDoneFunction } from './types';
 
 const useDone = (ms = 0) => {
@@ -17,7 +17,11 @@ const useDone = (ms = 0) => {
 const min100 = (ms = 0) => Math.max(100, ms);
 
 // #region Preparation
-/* v8 ignore next 18 */
+const getTimeout = (options?: TestOptions | number) => {
+  if (typeof options === 'number') return min100(options);
+  return min100(options?.timeout);
+};
+
 const objectify = (
   options?: TestOptions | number,
 ): [TestOptions, number] => {
@@ -30,12 +34,6 @@ const objectify = (
   }
 
   return [_options, _timeout];
-};
-
-const getTimeout = (options?: TestOptions | number) => {
-  if (options === undefined) return min100();
-  if (typeof options === 'number') return min100(options);
-  return min100(options?.timeout);
 };
 // #endregion
 

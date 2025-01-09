@@ -2,7 +2,8 @@ import { describe } from 'vitest';
 import { useTFA } from './acceptation';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useEachAsync, type useEachCases } from './each';
-import type { Fc, TestArgs } from './types';
+import { toString2 } from './toString2';
+import type { ToCreateTests_F } from './types';
 
 /**
  * Creates tests for function in a better way
@@ -11,27 +12,25 @@ import type { Fc, TestArgs } from './types';
  * @param f The function to test
  * @returns A test.each like function to tests many cases
  */
-export function createTests<F extends Fc>(f: F) {
-  type Cases = TestArgs<F>;
-  // type Re = TestReturn<F,TestArgs<F>>
-
-  return (...cases: Cases) => {
+export const createTests: ToCreateTests_F = f => {
+  return (...cases) => {
     describe('#0 => Accepation', () => useTFA(f));
+    const length = cases.length;
+    const forward = length >= 1;
 
-    const forward = cases.length >= 1;
     if (forward) {
       describe('#1 => Workflows', () => {
         const useTestAsync = useEachAsync(f);
         const _cases = cases.map(
-          ([_invite, parameters, expected], iter) => {
-            const invite = `#${iter + 1} => ${_invite}`;
-            const out = [invite, parameters, expected];
+          ({ invite: _invite, parameters, expected }, iter) => {
+            const invite = `#${toString2(iter + 1, length)} => ${_invite}`;
+            const out = { invite, parameters, expected };
             return out;
           },
-        ) as Cases;
+        );
 
-        useTestAsync(..._cases);
+        return useTestAsync(...(_cases as any));
       });
     }
   };
-}
+};

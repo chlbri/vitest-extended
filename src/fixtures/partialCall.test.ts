@@ -1,6 +1,6 @@
-import { describe, test, expect } from 'vitest';
-import { useTFA } from './acceptation';
-import { useEach } from './each';
+import { describe, expect, test } from 'vitest';
+import { useTFA } from '../acceptation';
+import { useEach } from '../each';
 import { partialCallO } from './partialCall';
 
 describe('partialCallO', () => {
@@ -33,9 +33,21 @@ describe('partialCallO', () => {
       const useTest = createTest(1);
 
       useTest(
-        ['#1 => b = 1 ===>> a + b = 2', [{ b: 1 }], 2],
-        ['#2 => b = 10 ===>> a + b = 11', [{ b: 10 }], 11],
-        ['#3 => b = 4 ===>> a + b = 5', [{ b: 4 }], 5],
+        {
+          invite: '#1 => b = 1 ===>> a + b = 2',
+          parameters: { b: 1 },
+          expected: 2,
+        },
+        {
+          invite: '#2 => b = 10 ===>> a + b = 11',
+          parameters: { b: 10 },
+          expected: 11,
+        },
+        {
+          invite: '#3 => b = 4 ===>> a + b = 5',
+          parameters: { b: 4 },
+          expected: 5,
+        },
       );
     });
 
@@ -43,9 +55,21 @@ describe('partialCallO', () => {
       const useTest = createTest(100);
 
       useTest(
-        ['#1 => b = 100 ===>> a + b = 200', [{ b: 100 }], 200],
-        ['#2 => b = 1000 ===>> a + b = 1100', [{ b: 1000 }], 1100],
-        ['#3 => b = 457 ===>> a + b = 557', [{ b: 457 }], 557],
+        {
+          invite: '#1 => b = 100 ===>> a + b = 200',
+          parameters: { b: 100 },
+          expected: 200,
+        },
+        {
+          invite: '#2 => b = 1000 ===>> a + b = 1100',
+          parameters: [{ b: 1000 }],
+          expected: 1100,
+        },
+        {
+          invite: '#3 => b = 457 ===>> a + b = 557',
+          parameters: [{ b: 457 }],
+          expected: 557,
+        },
       );
     });
   });

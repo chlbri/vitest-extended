@@ -2,6 +2,8 @@ import { globSync } from 'glob';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'rollup';
+import { circularDependencies } from 'rollup-plugin-circular-dependencies';
+import { nodeExternals } from 'rollup-plugin-node-externals';
 import tsConfigPaths from 'rollup-plugin-tsconfig-paths';
 import typescript from 'rollup-plugin-typescript2';
 
@@ -11,7 +13,7 @@ const ignore = [
   './src/types.ts',
   '**/*.fixtures.ts',
   'src/config/**/*.ts',
-  'src/fixtures',
+  'src/fixtures/**/*.ts',
   'src/tests/**/*',
   'src/config/**/*',
 ];
@@ -37,8 +39,21 @@ export default defineConfig({
   plugins: [
     tsConfigPaths(),
     typescript({ tsconfigOverride: { exclude: ignore } }),
+    circularDependencies({
+      exclude: [
+        '**/types.ts',
+        '**/type.ts',
+        '**/*.types.ts',
+        '**/*.type.ts',
+      ],
+    }),
+
+    nodeExternals({
+      optDeps: false,
+      builtinsPrefix: 'strip',
+    }),
   ],
-  external: ['vitest'],
+  // external: ['vitest'],
   output: [
     {
       format: 'es',

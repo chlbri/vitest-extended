@@ -1,7 +1,7 @@
 import sleep from '@bemedev/sleep';
+import { doneTest } from 'this1';
 import { describe } from 'vitest';
 import { createMachine, interpret } from 'xstate';
-import { doneTest } from './done';
 
 const machine = createMachine({
   id: 'my-machine',

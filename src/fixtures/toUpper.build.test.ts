@@ -1,7 +1,10 @@
+import {
+  useEach,
+  useEachAsync,
+  useTestFunctionAcceptation,
+  type TestArgs,
+} from 'this1';
 import { describe } from 'vitest';
-import { useTestFunctionAcceptation } from '../acceptation';
-import { useEach, useEachAsync } from '../each';
-import { TestArgs } from '../types';
 import { toUpper } from './toUpper';
 
 describe('#0 => Acceptation', () => useTestFunctionAcceptation(toUpper));
@@ -11,12 +14,12 @@ describe('#1 => Workflows', () => {
     const CASES: TestArgs<typeof toUpper> = [
       {
         invite: '#1 => I have a great test',
-        parameters: ['I have a great test'],
+        parameters: 'I have a great test',
         expected: ['I HAVE A GREAT TEST'],
       },
       {
         invite: '#2 => Ich liebe dich',
-        parameters: ['Ich liebe dich'],
+        parameters: 'Ich liebe dich',
         expected: ['ICH LIEBE DICH'],
       },
       {

@@ -1,5 +1,5 @@
+import { createTests } from 'this1';
 import { describe } from 'vitest';
-import { createTests } from './createTests';
 import { isFunction } from './isFunction';
 
 describe('isFunction', () => {
@@ -23,7 +23,7 @@ describe('isFunction', () => {
     },
     {
       invite: 'Async Function with return',
-      parameters: async function asyncFunction() {},
+      parameters: [async function asyncFunction() {}],
       expected: true,
     },
     {

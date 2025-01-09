@@ -3,31 +3,10 @@
   "version": "0.5.0",
   "description": "Extensions to build tests in jest",
   "type": "module",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "module": "lib/index.js",
-  "scripts": {
-    "build": "pnpm run lib:rm && pnpm run rollup",
-    "build:pack": "pnpm run rm && pnpm run config:off && pnpm run build && pnpm run pack",
-    "ci": "pnpm run build:pack && pnpm run lint && pnpm run test && pnpm run build",
-    "ci:online": "pnpm run config && pnpm run lint && pnpm run test && pnpm run build",
-    "config": "pnpm install",
-    "config:off": "pnpm run config --offline",
-    "dep:off": "pnpm run dep --offline",
-    "eslint": "eslint ",
-    "lib:rm": "rm -rf lib",
-    "lint": "pnpm run prettier && pnpm run eslint --fix",
-    "pack": "tsx ./.pack/toPack.ts",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "rinit": "pnpm run rm && pnpm run config",
-    "rinit:off": "pnpm run rinit --offline",
-    "rm": "rm -rf node_modules pnpm-lock.yaml",
-    "rollup": "rollup -c",
-    "test": "pnpm run test:coverage --no-coverage",
-    "test:coverage": "vitest run --passWithNoTests",
-    "test:watch": "vitest --passWithNoTests",
-    "upgrade": "pnpm upgrade --latest && pnpm add xstate@4.38.3 --offline"
-  },
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "module": "index.js",
+
   "keywords": [
     "jest",
     "test",
@@ -37,10 +16,6 @@
     "describe",
     "expect"
   ],
-  "files": [
-    "lib",
-    "public"
-  ],
   "author": {
     "email": "bri_lvi@icloud.com",
     "name": "Charles-Lévi BRI",
@@ -49,6 +24,7 @@
   "license": "MIT",
   "devDependencies": {
     "@bemedev/vitest-alias": "^0.0.3",
+    "@bemedev/vitest-cov-exclude": "^0.0.2",
     "@bemedev/vitest-exclude": "^0.0.2",
     "@types/edit-json-file": "^1.7.3",
     "@types/shelljs": "^0.8.15",
@@ -70,12 +46,10 @@
     "rxjs": "^7.8.1",
     "shelljs": "^0.8.5",
     "terser": "^5.37.0",
-    "this1": "file:./.pack/bemedev-vitest-extended-0.5.0.tgz",
     "tsc-alias": "^1.8.10",
     "tslib": "^2.8.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
-    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.8",
     "xstate": "4.38.3",
     "zod": "^3.24.1"

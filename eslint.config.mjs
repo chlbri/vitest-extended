@@ -24,6 +24,8 @@ export default [
       '**/publish_npm',
       '**/*.typegen.ts',
       '**/*.test-d.ts',
+      '**/*.cjs',
+      '**/*.mjs',
     ],
   },
   ...compat.extends(

@@ -1,19 +1,19 @@
+import type { Fn } from '@bemedev/types';
 import { expect, test } from 'vitest';
 import { partialCall } from './partialCall';
-import type { Fc, TestArgs, TestReturn } from './types';
+import { toArray2 } from './toArray';
+import type { TestArgs, TestReturn } from './types';
 
 // #region Sync
 // #region Config
-export function useEachCases<F extends Fc>(f: F, ...cases: TestArgs<F>) {
-  test.concurrent.each(cases)(
+export function useEachCases<F extends Fn>(f: F, ...cases: TestArgs<F>) {
+  test.concurrent.each(toArray2(cases))(
     '%s',
     (_, args, expected) => {
       const value = f(...args);
-      const checkArray = Array.isArray(value);
+      const checkArray = Array.isArray(value) && Array.isArray(expected);
       if (checkArray) {
-        return expect(value).toStrictEqual(
-          expect.arrayContaining(expected),
-        );
+        return expect(value.sort()).toStrictEqual(expected.sort());
       }
       return expect(value).toStrictEqual(expected);
     },
@@ -21,7 +21,7 @@ export function useEachCases<F extends Fc>(f: F, ...cases: TestArgs<F>) {
   );
 }
 
-function useEachFunction<F extends Fc>(f: F) {
+function useEachFunction<F extends Fn>(f: F) {
   const out = partialCall(useEachCases<F>, f);
   return out;
 }
@@ -50,7 +50,7 @@ function useEachFunction<F extends Fc>(f: F) {
  *
  * Example: For a function like ***(arg1: string)=>any***, the second arg with be : ***[string]***
  *  */
-export function useEach<F extends Fc, A extends TestArgs<F> = []>(
+export function useEach<F extends Fn, A extends TestArgs<F> = []>(
   f: F,
   ...cases: A
 ) {
@@ -66,19 +66,17 @@ export function useEach<F extends Fc, A extends TestArgs<F> = []>(
 
 // #region Async
 // #region Config
-function useEachAsyncCases<F extends Fc<any, Promise<any>>>(
+function useEachAsyncCases<F extends Fn<any, Promise<any>>>(
   f: F,
   ...cases: TestArgs<F>
 ) {
-  test.concurrent.each(cases)(
+  test.concurrent.each(toArray2(cases))(
     '%s',
     async (_, args, expected) => {
       const value = await f(...args);
-      const checkArray = Array.isArray(value);
+      const checkArray = Array.isArray(value) && Array.isArray(expected);
       if (checkArray) {
-        return expect(value).toStrictEqual(
-          expect.arrayContaining(expected),
-        );
+        return expect(value.sort()).toStrictEqual(expected.sort());
       }
       return expect(value).toStrictEqual(expected);
     },
@@ -86,7 +84,7 @@ function useEachAsyncCases<F extends Fc<any, Promise<any>>>(
   );
 }
 
-function useEachAsyncFunction<F extends Fc<any, Promise<any>>>(f: F) {
+function useEachAsyncFunction<F extends Fn<any, Promise<any>>>(f: F) {
   const out = partialCall(useEachAsyncCases<F>, f);
   return out;
 }
@@ -99,7 +97,7 @@ function useEachAsyncFunction<F extends Fc<any, Promise<any>>>(f: F) {
  *
  *  */
 export function useEachAsync<
-  F extends Fc<any, Promise<any>>,
+  F extends Fn<any, Promise<any>>,
   A extends TestArgs<F>,
 >(f: F, ...cases: A) {
   type Re = TestReturn<F, A>;

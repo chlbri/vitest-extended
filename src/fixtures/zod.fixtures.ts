@@ -1,7 +1,8 @@
+import type { Fn } from '@bemedev/types';
 import { describe, expect, test } from 'vitest';
 import { z } from 'zod';
 import { useTFA } from '../acceptation';
-import { Fc, TestReturn } from '../types';
+import { TestReturn } from '../types';
 import { transformZTF, type Any } from './zod';
 
 // #region Types
@@ -14,9 +15,13 @@ export const useWorkflow = (createTest: TT) => {
     const useTest = createTest(z.string());
 
     useTest(
-      ['#1 => boolean fails', [true], false],
-      ['#2 => number fails', [5], false],
-      ['#3 => string pass', ['str'], true],
+      {
+        invite: '#1 => boolean fails',
+        parameters: [true],
+        expected: false,
+      },
+      { invite: '#2 => number fails', parameters: [5], expected: false },
+      { invite: '#3 => string pass', parameters: ['str'], expected: true },
     );
   });
 
@@ -24,9 +29,17 @@ export const useWorkflow = (createTest: TT) => {
     const useTest = createTest(z.number());
 
     useTest(
-      ['#1 => boolean fails', [true], false],
-      ['#2 => number pass', [5], true],
-      ['#3 => string fails', ['str'], false],
+      {
+        invite: '#1 => boolean fails',
+        parameters: [true],
+        expected: false,
+      },
+      { invite: '#2 => number pass', parameters: [5], expected: true },
+      {
+        invite: '#3 => string fails',
+        parameters: ['str'],
+        expected: false,
+      },
     );
   });
 
@@ -34,11 +47,27 @@ export const useWorkflow = (createTest: TT) => {
     const useTest = createTest(z.enum(['PILE', 'FACE']));
 
     useTest(
-      ['#1 => boolean fails', [true], false],
-      ['#2 => number fails', [5], false],
-      ['#3 => simple string fails', ['str'], false],
-      ['#4 => string PILE pass', ['PILE'], true],
-      ['#5=> string FACE pass', ['FACE'], true],
+      {
+        invite: '#1 => boolean fails',
+        parameters: [true],
+        expected: false,
+      },
+      { invite: '#2 => number fails', parameters: [5], expected: false },
+      {
+        invite: '#3 => simple string fails',
+        parameters: ['str'],
+        expected: false,
+      },
+      {
+        invite: '#4 => string PILE pass',
+        parameters: ['PILE'],
+        expected: true,
+      },
+      {
+        invite: '#5 => string FACE pass',
+        parameters: ['FACE'],
+        expected: true,
+      },
     );
   });
 
@@ -46,16 +75,32 @@ export const useWorkflow = (createTest: TT) => {
     const useTest = createTest(z.enum(['PILE', 'FACE']));
 
     useTest(
-      ['#1 => boolean fails', [true], false],
-      ['#2 => number fails', [5], false],
-      ['#3 => simple string fails', ['str'], false],
-      ['#4 => string PILE pass', ['PILE'], true],
-      ['#5=> string FACE pass', ['FACE'], true],
+      {
+        invite: '#1 => boolean fails',
+        parameters: [true],
+        expected: false,
+      },
+      { invite: '#2 => number fails', parameters: [5], expected: false },
+      {
+        invite: '#3 => simple string fails',
+        parameters: ['str'],
+        expected: false,
+      },
+      {
+        invite: '#4 => string PILE pass',
+        parameters: ['PILE'],
+        expected: true,
+      },
+      {
+        invite: '#5 => string FACE pass',
+        parameters: ['FACE'],
+        expected: true,
+      },
     );
   });
 };
 
-export const _useTFA = <F extends Fc>(f: F) => {
+export const _useTFA = <F extends Fn>(f: F) => {
   describe('#0 => Accceptation', () => useTFA(f));
 
   describe('#1 => It create function', () => {

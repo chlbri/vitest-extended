@@ -1,8 +1,8 @@
+import type { Fn } from '@bemedev/types';
 import { expect, test } from 'vitest';
 import { isFunction } from './isFunction';
-import type { Fc } from './types';
 
-export const useTestFunctionAcceptation = (f: Fc) => {
+export const useTestFunctionAcceptation = (f: Fn) => {
   test(`#1 => ${f.name} is defined`, () => {
     expect(f).toBeDefined();
   });
