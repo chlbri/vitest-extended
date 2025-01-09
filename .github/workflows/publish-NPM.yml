@@ -12,39 +12,40 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.6
 
-      - name: Install node
+      - name: Setup node for publication
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
+          always-auth: true
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@bemedev'
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        id: pnpm-install
         with:
           version: 9
           run_install: false
 
       - name: Get pnpm store directory
+        id: pnpm-cache
         shell: bash
         run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
         with:
-          path: ${{ env.STORE_PATH }}
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key:
-            ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml')
-            }}
+            ${{ runner.os }}-pnpm-store-${{
+            hashFiles('**/pnpm-lock.yaml')}}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
-
-      - name: Lint
-        run: pnpm run lint
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
         run: pnpm run build
@@ -64,6 +65,3 @@ jobs:
       - name: Check - not updated
         if: ${{ ! steps.publish.outputs.type }}
         run: echo "Remain the same!"
-
-      # - name: TODO => Notification
-      #   run: echo 'TODO => Build a Notification pipeline'

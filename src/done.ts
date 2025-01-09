@@ -2,7 +2,7 @@ import { expect, test, type TestOptions } from 'vitest';
 import { sleep } from './sleep';
 import type { TestDoneFunction } from './types';
 
-export const useDone = (ms = 0) => {
+const useDone = (ms = 0) => {
   let executed = false;
   const done = () => (executed = true);
 

@@ -1,5 +1,6 @@
 import { describe } from 'vitest';
 import { useTFA } from './acceptation';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useEachAsync, type useEachCases } from './each';
 import type { Fc, TestArgs } from './types';
 

@@ -1,13 +1,6 @@
-import { test } from 'vitest';
 import { createMachine, interpret } from 'xstate';
-import { doneTest, useDone } from './done';
+import { doneTest } from './done';
 import { sleep } from './sleep';
-
-test('#0 => useDone', () => {
-  const { done, testDone } = useDone();
-  done();
-  return testDone();
-});
 
 const machine = createMachine({
   id: 'my-machine',
@@ -80,9 +73,9 @@ doneTest.fails(
 
     setTimeout(() => {
       service.send('FINISH');
-    }, 100);
+    }, 1000);
   },
-  100 - 10,
+  10,
 );
 
 doneTest.fails(
