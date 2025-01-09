@@ -82,8 +82,8 @@ importers:
         specifier: ^5.37.0
         version: 5.37.0
       this1:
-        specifier: file:./.pack/bemedev-vitest-extended-0.5.0.tgz
-        version: '@bemedev/vitest-extended@file:.pack/bemedev-vitest-extended-0.5.0.tgz(vitest@2.1.8(@types/node@22.10.5)(terser@5.37.0))'
+        specifier: file:./.pack/bemedev-vitest-extended-0.5.1.tgz
+        version: '@bemedev/vitest-extended@file:.pack/bemedev-vitest-extended-0.5.1.tgz(vitest@2.1.8(@types/node@22.10.5)(terser@5.37.0))'
       tsc-alias:
         specifier: ^1.8.10
         version: 1.8.10
@@ -156,9 +156,9 @@ packages:
       glob: ^10.3.15
       vitest: ^1.5.2
 
-  '@bemedev/vitest-extended@file:.pack/bemedev-vitest-extended-0.5.0.tgz':
-    resolution: {integrity: sha512-1aD2IHaPr5fVsRgQ2VY5w3LlgXPNZmHH/4yWu70ZacXihyltSizP1xzExVJWP+8M8qqf6EQCitsWmTWoSUFbLg==, tarball: file:.pack/bemedev-vitest-extended-0.5.0.tgz}
-    version: 0.5.0
+  '@bemedev/vitest-extended@file:.pack/bemedev-vitest-extended-0.5.1.tgz':
+    resolution: {integrity: sha512-gn30CHPUWztwQqVbURHywbdZ0RvqnMBii9NZZKpbm77piOH8+dscSC2Z9qMvyDM+6BuMhoxFGf/7eiRrjODTzQ==, tarball: file:.pack/bemedev-vitest-extended-0.5.1.tgz}
+    version: 0.5.1
     peerDependencies:
       vitest: ^1.5.0
 
@@ -1815,7 +1815,7 @@ snapshots:
       glob: 11.0.0
       vitest: 2.1.8(@types/node@22.10.5)(terser@5.37.0)
 
-  '@bemedev/vitest-extended@file:.pack/bemedev-vitest-extended-0.5.0.tgz(vitest@2.1.8(@types/node@22.10.5)(terser@5.37.0))':
+  '@bemedev/vitest-extended@file:.pack/bemedev-vitest-extended-0.5.1.tgz(vitest@2.1.8(@types/node@22.10.5)(terser@5.37.0))':
     dependencies:
       '@bemedev/sleep': 0.1.2
       '@bemedev/types': 0.1.3
