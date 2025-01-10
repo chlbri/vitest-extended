@@ -13,7 +13,7 @@
     "ci:online": "pnpm run config && pnpm run lint && pnpm run test && pnpm run build",
     "config": "pnpm install",
     "config:off": "pnpm run config --offline",
-    "eslint": "eslint ",
+    "eslint": "eslint \"{src/**/*,App}.{ts,tsx}\"",
     "lib:rm": "rm -rf lib",
     "lint": "pnpm run prettier && pnpm run eslint --fix",
     "pack": "tsx ./.pack/toPack.ts",
