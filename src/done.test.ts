@@ -24,9 +24,7 @@ const machine = createMachine({
 
 describe('DoneTest', () => {
   doneTest('#1 => Simple', done => {
-    const service = interpret(machine)
-      .onDone(() => done())
-      .start();
+    const service = interpret(machine).onDone(done).start();
 
     service.send('START');
     service.send('STOP');
@@ -35,9 +33,7 @@ describe('DoneTest', () => {
   });
 
   doneTest.fails('#2 => Fails', done => {
-    const service = interpret(machine)
-      .onDone(() => done())
-      .start();
+    const service = interpret(machine).onDone(done).start();
 
     service.send('START');
     service.send('STOP');
@@ -47,9 +43,7 @@ describe('DoneTest', () => {
   doneTest.concurrent(
     '#3 => Concurrent',
     done => {
-      const service = interpret(machine)
-        .onDone(() => done())
-        .start();
+      const service = interpret(machine).onDone(done).start();
 
       service.send('START');
       service.send('STOP');
@@ -65,9 +59,7 @@ describe('DoneTest', () => {
   doneTest.fails(
     '#4 => Not enough time',
     done => {
-      const service = interpret(machine)
-        .onDone(() => done())
-        .start();
+      const service = interpret(machine).onDone(done).start();
 
       service.send('START');
       service.send('STOP');
@@ -83,9 +75,7 @@ describe('DoneTest', () => {
   doneTest.fails(
     '#5 => Adding Async function for only 1 second plus will fails',
     async done => {
-      const service = interpret(machine)
-        .onDone(() => done())
-        .start();
+      const service = interpret(machine).onDone(done).start();
 
       service.send('START');
       service.send('STOP');

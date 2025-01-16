@@ -1,4 +1,5 @@
-import type { Fn, LengthOf } from '@bemedev/types';
+import type { Fn, LengthOf, NExtract } from '@bemedev/types';
+import type * as vi from 'vitest';
 
 type Test = Fn<[inivte: string, f: Parameters<Fn>, number?], void>;
 
@@ -59,6 +60,21 @@ export type TestReturn<
 
 export type TestDoneFunction = (context: () => boolean) => void;
 
+type Phs<
+  T extends NExtract<
+    keyof typeof vi,
+    'beforeAll' | 'beforeEach' | 'afterAll' | 'afterEach'
+  >,
+> = Parameters<(typeof vi)[T]>;
+
+export type CreateTestsOPtions = {
+  beforeAll?: Phs<'beforeAll'>;
+  beforeEach?: Phs<'beforeEach'>;
+  afterAll?: Phs<'afterAll'>;
+  afterEach?: Phs<'afterEach'>;
+};
+
 export type ToCreateTests_F = <F extends Fn>(
   f: F,
+  implementation?: () => Promise<F> | F,
 ) => (...cases: TestArgs<F>) => void;

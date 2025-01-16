@@ -4,6 +4,7 @@
     "lib": ["dom", "esnext"],
     "importHelpers": true,
     "target": "ESNext",
+    "module": "ESNext",
     "declaration": true,
     "sourceMap": true,
     "outDir": "./lib",
