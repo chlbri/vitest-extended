@@ -13,20 +13,47 @@ import type { ToCreateTests_F } from './types';
  * NB : We use strict-equality, {@link useEachCases|see}
  * @param library The test library
  * @param f The function to test
+ * @param
  * @returns A test.each like function to tests many cases
+ *
+ * NB: If the first argument is an array, wrap the value in another array,
+ *
+ * @example
+ * // ./add.ts
+ *export const add = (args: string[]) => args.reduce(
+ *    (acc, value) => {
+ *      acc+=value
+ *      return acc;
+ *    },
+ *  0)
+ *
+ *
+ * // .add.test.ts
+ *import { createTests } from '@bemedev/vitest-extended';
+ *import { add } from './add';
+ *
+ *const useTests = createTests(add)
+ *
+ *useTests(
+ *   {
+ *     invite: 'For : 1,2,3,4,5,6,7,8,9',
+ *     parameters: [[1, 2, 3, 4, 5, 6, 7, 8, 9]], // like this!
+ *   }
+ *)
+ *
  */
 export const createTests: ToCreateTests_F = (f, instanciation) => {
   const func = vi.fn(f);
+
   return (...cases) => {
-    if (instanciation)
+    if (instanciation) {
       beforeAll(async () => {
         const impl = await instanciation();
         func.mockImplementation(impl);
       });
+    }
 
-    describe('#0 => Acceptation', () => {
-      useTFA(func);
-    });
+    describe('#0 => Acceptation', () => useTFA(func));
 
     const length = cases.length;
     const forward = length >= 1;

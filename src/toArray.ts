@@ -13,8 +13,8 @@ export const toArray: ToArray_F = obj => {
     return obj;
   } else {
     const isNotDefined = !isDefined(obj);
-
     if (isNotDefined) return [];
+
     return [obj];
   }
 };

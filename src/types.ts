@@ -1,40 +1,15 @@
-import type { Fn, LengthOf, NExtract } from '@bemedev/types';
-import type * as vi from 'vitest';
+import type { Fn, LengthOf } from '@bemedev/types';
 
-type Test = Fn<[inivte: string, f: Parameters<Fn>, number?], void>;
-
-/**
- * Jest or Vitest
- */
-export type TestLibrary = {
-  each: Fn<[any], Test>;
-  test: Test;
-  afterAll: Fn<[Fn, number?]>;
-  beforeAll: Fn<[Fn, number?]>;
-  beforeEach: Fn<[Fn, number?]>;
-  afterEach: Fn<[Fn, number?]>;
-  describe: Test;
-  expect: Fn<
-    any,
-    {
-      toEqual: Fn<[any], void>;
-      toBeDefined: Fn<[], void>;
-      toBe: Fn<[any], void>;
-    }
-  >;
-  timeout?: number;
-};
-
-type SimpleParams<F extends Fn, P extends any[] = Parameters<F>> =
+export type SimpleParams<F extends Fn, P extends any[] = Parameters<F>> =
   LengthOf<P> extends 0
     ? { parameters?: never }
-    : LengthOf<P> extends 1
-      ? { parameters: P[0] | P }
-      : 0 extends LengthOf<P>
-        ? 1 extends LengthOf<P>
+    : 1 extends LengthOf<P>
+      ? undefined extends P[0]
+        ? { parameters?: P | P[0] }
+        : P[0] extends P[1]
           ? { parameters?: P | P[0] }
-          : { parameters?: P }
-        : { parameters: P };
+          : { parameters: P | P[0] }
+      : { parameters: P };
 
 export type TestArgs<F extends Fn> = ({
   invite: string;
@@ -53,26 +28,10 @@ export type ToArray2_F = <F extends Fn>(
   params: TestArgs<F>,
 ) => TestArgs2<F>;
 
-export type TestReturn<
-  F extends Fn,
-  A extends TestArgs<F>,
-> = A['length'] extends 0 ? (...tailArgs: TestArgs<F>) => void : void;
+export type TestReturn<F extends Fn, A extends TestArgs<F>> =
+  LengthOf<A> extends 0 ? Fn<TestArgs<F>, void> : void;
 
-export type TestDoneFunction = (context: () => boolean) => void;
-
-type Phs<
-  T extends NExtract<
-    keyof typeof vi,
-    'beforeAll' | 'beforeEach' | 'afterAll' | 'afterEach'
-  >,
-> = Parameters<(typeof vi)[T]>;
-
-export type CreateTestsOPtions = {
-  beforeAll?: Phs<'beforeAll'>;
-  beforeEach?: Phs<'beforeEach'>;
-  afterAll?: Phs<'afterAll'>;
-  afterEach?: Phs<'afterEach'>;
-};
+export type TestDoneFunction = Fn<[context: () => boolean], void>;
 
 export type ToCreateTests_F = <F extends Fn>(
   f: F,

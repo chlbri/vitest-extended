@@ -14,12 +14,20 @@ export default defineConfig({
 
   test: {
     environment: 'node',
+    passWithNoTests: true,
+    bail: 10,
+    maxConcurrency: 10,
+    logHeapUsage: true,
     globals: true,
     coverage: {
       enabled: true,
       extension: 'ts',
       all: true,
       provider: 'v8',
+    },
+    typecheck: {
+      enabled: true,
+      ignoreSourceErrors: true,
     },
   },
 });

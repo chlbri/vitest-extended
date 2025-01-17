@@ -5,6 +5,8 @@ import { doneTest } from './done';
 
 const machine = createMachine({
   id: 'my-machine',
+  predictableActionArguments: true,
+  preserveActionOrder: true,
   initial: 'idle',
   states: {
     idle: {
