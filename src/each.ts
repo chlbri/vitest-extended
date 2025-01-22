@@ -6,6 +6,8 @@ import type { TestArgs, TestReturn } from './types';
 
 // #region Sync
 // #region Config
+
+//TODO add Error handling
 export function useEachCases<F extends Fn>(f: F, ...cases: TestArgs<F>) {
   test.concurrent.each(toArray2(cases))(
     '%s',
@@ -21,6 +23,7 @@ export function useEachCases<F extends Fn>(f: F, ...cases: TestArgs<F>) {
   );
 }
 
+//TODO add Error handling
 function useEachFunction<F extends Fn>(f: F) {
   const out = partialCall(useEachCases<F>, f);
   return out;
@@ -54,6 +57,8 @@ export function useEach<F extends Fn, A extends TestArgs<F> = []>(
   f: F,
   ...cases: A
 ) {
+  //TODO add Error handling
+
   type Re = TestReturn<F, A>;
 
   const forward = cases.length >= 1;
@@ -100,6 +105,8 @@ export function useEachAsync<
   F extends Fn<any, Promise<any>>,
   A extends TestArgs<F>,
 >(f: F, ...cases: A) {
+  //TODO add Error handling
+
   type Re = TestReturn<F, A>;
 
   const forward = cases.length >= 1;

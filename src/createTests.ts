@@ -1,3 +1,4 @@
+import type { Fn } from '@bemedev/types';
 import { beforeAll, describe, vi } from 'vitest';
 import { useTFA } from './acceptation';
 import {
@@ -6,7 +7,7 @@ import {
   type useEachCases,
 } from './each';
 import { toString2 } from './toString2';
-import type { ToCreateTests_F } from './types';
+import type { TestArgs, ToCreateTestsWithImplementation_F } from './types';
 
 /**
  * Creates tests for function in a better way
@@ -42,18 +43,9 @@ import type { ToCreateTests_F } from './types';
  *)
  *
  */
-export const createTests: ToCreateTests_F = (f, instanciation) => {
-  const func = vi.fn(f);
-
-  return (...cases) => {
-    if (instanciation) {
-      beforeAll(async () => {
-        const impl = await instanciation();
-        func.mockImplementation(impl);
-      });
-    }
-
-    describe('#0 => Acceptation', () => useTFA(func));
+export const createTests = <F extends Fn>(func: F, name?: string) => {
+  return (...cases: TestArgs<F>) => {
+    describe('#0 => Acceptation', () => useTFA(func, name));
 
     const length = cases.length;
     const forward = length >= 1;
@@ -62,7 +54,7 @@ export const createTests: ToCreateTests_F = (f, instanciation) => {
       describe('#1 => Workflows', () => {
         const useTestAsync = useEachAsync(func);
 
-        const _cases = cases.map(
+        const _cases: any = cases.map(
           ({ invite: _invite, parameters, expected }, iter) => {
             const invite = `#${toString2(iter + 1, length)} => ${_invite}`;
             const out = { invite, parameters, expected };
@@ -70,8 +62,23 @@ export const createTests: ToCreateTests_F = (f, instanciation) => {
           },
         );
 
-        return useTestAsync(...(_cases as any));
+        return useTestAsync(..._cases);
       });
     }
   };
 };
+
+createTests.withImplementation = ((f, { instanciation, name }) => {
+  const func = vi.fn(f);
+
+  if (instanciation) {
+    beforeAll(async () => {
+      const impl = await instanciation();
+      func.mockImplementation(impl);
+    });
+  }
+
+  return createTests(func, name);
+}) satisfies ToCreateTestsWithImplementation_F;
+
+createTests.withoutImplementation = createTests;

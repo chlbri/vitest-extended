@@ -8,7 +8,10 @@ describe('CreateTests - Coverage', () => {
   const addTest = t.anify<Add_F>();
 
   describe('#2 => CreateTests, funcTest is initialazed', () => {
-    const useTests = createTests(addTest, () => add);
+    const useTests = createTests.withImplementation(addTest, {
+      instanciation: () => add,
+      name: 'add',
+    });
 
     useTests(
       {

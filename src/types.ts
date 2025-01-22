@@ -33,7 +33,7 @@ export type TestReturn<F extends Fn, A extends TestArgs<F>> =
 
 export type TestDoneFunction = Fn<[context: () => boolean], void>;
 
-export type ToCreateTests_F = <F extends Fn>(
+export type ToCreateTestsWithImplementation_F = <F extends Fn>(
   f: F,
-  implementation?: () => Promise<F> | F,
+  implementation: { instanciation: () => Promise<F> | F; name: string },
 ) => (...cases: TestArgs<F>) => void;
