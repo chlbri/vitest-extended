@@ -22,11 +22,24 @@ export type TestArgs2<F extends Fn> = [
   expected: Awaited<ReturnType<F>>,
 ][];
 
-export type ToArray_F = <T>(obj: any) => T[];
+export type TestErrors<F extends Fn> = ({
+  invite: string;
+} & SimpleParams<F>)[];
 
-export type ToArray2_F = <F extends Fn>(
-  params: TestArgs<F>,
-) => TestArgs2<F>;
+export type TestErrors2<F extends Fn> = [
+  invite: string,
+  parameters: Parameters<F>,
+][];
+
+export interface ToArray_F {
+  <T>(obj: any): T[];
+  generic: <T>(obj: T) => T[];
+}
+
+export interface ToArrayVitest_F {
+  <F extends Fn>(params: TestArgs<F>): TestArgs2<F>;
+  error: <F extends Fn>(params: TestErrors<F>) => TestErrors2<F>;
+}
 
 export type TestReturn<F extends Fn, A extends TestArgs<F>> =
   LengthOf<A> extends 0 ? Fn<TestArgs<F>, void> : void;

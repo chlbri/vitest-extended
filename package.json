@@ -1,6 +1,6 @@
 {
   "name": "@bemedev/vitest-extended",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Extensions to build tests in vitest",
   "type": "module",
   "main": "lib/index.js",
@@ -18,7 +18,6 @@
     "eslint": "eslint \"{src/**/*,App}.{ts,tsx}\"",
     "lib:rm": "rm -rf lib",
     "lint": "pnpm run prettier && pnpm run eslint --fix",
-    "pack": "tsx ./.pack/toPack.ts",
     "p-q": "pretty-quick",
     "pretest": "pnpm run build",
     "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
@@ -52,6 +51,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@bemedev/basicfunc": "^0.0.2",
     "@bemedev/vitest-alias": "^0.0.3",
     "@bemedev/vitest-exclude": "^0.0.2",
     "@types/edit-json-file": "^1.7.3",

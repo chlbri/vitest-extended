@@ -1,6 +1,6 @@
 import { describe } from 'vitest';
 import { useTestFunctionAcceptation } from '../acceptation';
-import { useEach, useEachAsync } from '../each';
+import { useEach, useEachAsync } from '../each/pass';
 import { TestArgs } from '../types';
 import { toUpper } from './toUpper';
 

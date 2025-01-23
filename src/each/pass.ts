@@ -1,15 +1,15 @@
 import type { Fn } from '@bemedev/types';
 import { expect, test } from 'vitest';
-import { partialCall } from './partialCall';
-import { toArray2 } from './toArray';
-import type { TestArgs, TestReturn } from './types';
+import { partialCall } from '../partialCall';
+import { toArrayVitest } from '../toArray';
+import type { TestArgs, TestReturn } from '../types';
 
 // #region Sync
 // #region Config
 
 //TODO add Error handling
 export function useEachCases<F extends Fn>(f: F, ...cases: TestArgs<F>) {
-  test.concurrent.each(toArray2(cases))(
+  test.concurrent.each(toArrayVitest(cases))(
     '%s',
     (_, args, expected) => {
       const value = f(...args);
@@ -75,7 +75,7 @@ function useEachAsyncCases<F extends Fn<any, Promise<any>>>(
   f: F,
   ...cases: TestArgs<F>
 ) {
-  test.concurrent.each(toArray2(cases))(
+  test.concurrent.each(toArrayVitest(cases))(
     '%s',
     async (_, args, expected) => {
       const value = await f(...args);

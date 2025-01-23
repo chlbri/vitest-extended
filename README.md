@@ -48,9 +48,9 @@ import { createTests } from '@bemedev/vitest-extended';
 const add = (a: number, b: number) => a + b;
 
 describe('Addition', () => {
-  const useTests = createTests(add);
+  const { success } = createTests(add);
 
-  useTests(
+  success(
     { invite: 'addition de 1 et 2', parameters: [1, 2], expected: 3 },
     { invite: 'addition de 2 et 3', parameters: [2, 3], expected: 5 },
   );
@@ -123,6 +123,14 @@ Version asynchrone de `useEach`.
 ### `useEachCases`
 
 Utilisé pour tester des cas spécifiques.
+
+### `useError`
+
+Utilisé pour tester les erreurs attendues dans une fonction.
+
+### `useErrorAsync`
+
+Version asynchrone de `useError`.
 
 <br/>
 

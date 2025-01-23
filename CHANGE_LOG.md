@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.0] - 2023-10-15
+
+### Ajout
+
+- Ajout de nouvelles assertions personnalisées pour Vitest.
+- Ajout de tests unitaires pour tester les erreurs dans les fonctions
+
+### Modification
+
+- Amélioration des performances des fonctions existantes.
+- Refactorisation du code pour une meilleure lisibilité et maintenabilité.
+
+### Correction
+
+- Correction d'un bug mineur dans la fonction `createTests` qui causait des
+  erreurs intermittentes.
+
+<br/>
+<br/>
+
 ## [1.0.0] - 2023-10-10
 
 ### Ajouté

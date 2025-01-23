@@ -3,18 +3,18 @@ import { createTests } from '../createTests';
 import { addMany, expected, noArgs } from './coverage';
 
 describe('funcNoArgs - to cov', () => {
-  const useTests = createTests(noArgs);
+  const { success } = createTests(noArgs);
 
-  useTests(
+  success(
     { expected, invite: 'No Args' },
     { expected, invite: 'No Args - again' },
-  );
+  )();
 });
 
 describe('addMany - to cov', () => {
-  const useTests = createTests(addMany);
+  const { success } = createTests(addMany);
 
-  useTests(
+  success(
     { expected: 0, invite: 'No Args' },
     {
       expected: 1,
@@ -36,5 +36,5 @@ describe('addMany - to cov', () => {
       invite: '0,1,2,3,4,5,6,7,8,9',
       parameters: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     },
-  );
+  )();
 });
