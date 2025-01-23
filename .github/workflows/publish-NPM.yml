@@ -61,10 +61,10 @@ jobs:
       - name: Check - updated
         if: ${{ steps.publish.outputs.type }}
         run:
-          '${{ steps.publish.outputs.name }} Version changed from ${{
+          echo "${{ steps.publish.outputs.name }} Version changed from ${{
           steps.publish.outputs.old-version }} to ${{
-          steps.publish.outputs.version }}'
+          steps.publish.outputs.version }}"
 
       - name: Check - not updated
         if: ${{ ! steps.publish.outputs.type }}
-        run: 'Remain the same!'
+        run: echo "Remain the same! - ${{ steps.publish.outputs.version }}"
