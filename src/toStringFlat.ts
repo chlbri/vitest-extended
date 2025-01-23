@@ -4,14 +4,10 @@ const log10: Fn<[value: number], number> = (value: number) => {
   return Math.floor(Math.log10(value));
 };
 
-export const toString2: Fn<[value: number, len: number], string> = (
+export const toStringFlat: Fn<[value: number, len: number], string> = (
   _value,
   _len,
 ) => {
-  const check = _value < 1 || _len < 1;
-  /* v8 ignore next 1 */
-  if (check) throw new Error('-Infinity');
-
   const logLength = log10(_len);
   const logValue = log10(_value);
   const length = logLength - logValue;

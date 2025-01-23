@@ -1,38 +1,30 @@
 import { expect, test } from 'vitest';
-import { partialCall } from '../partialCall';
 import { toArrayVitest } from '../toArray';
 import type {
+  _UseErrorAsyncEach_F,
+  _UseErrorEach_F,
   UseErrorAsyncEach_F,
-  UseErrorAsyncEachCases_F,
   UseErrorEach_F,
-  UseErrorEachCases_F,
 } from './error.types';
 
-export const useErrorEachCases: UseErrorEachCases_F = (
+export const useErrorEachCases: _UseErrorEach_F = (
   f,
   toError = () => undefined,
   ...cases
 ) => {
-  test.concurrent.each(toArrayVitest.error(cases))(
-    '%s',
-    (_, args) => {
-      const actual = () => f(...args);
-      const error = toError(...args);
+  test.concurrent.each(toArrayVitest.error(cases))('%s', (_, args) => {
+    const actual = () => f(...args);
+    const error = toError(...args);
 
-      expect(actual).toThrowError(error);
-    },
-    50,
-  );
+    expect(actual).toThrowError(error);
+  });
 };
 
-export const useErrorEach: UseErrorEach_F = (f, toError, ...cases) => {
-  const forward = cases.length >= 1;
-
-  if (forward) return useErrorEachCases(f, toError, ...cases);
-  return partialCall(useErrorEachCases<typeof f>, f, toError) as any;
+export const useErrorEach: UseErrorEach_F = (f, toError) => {
+  return (...cases) => useErrorEachCases(f, toError, ...cases);
 };
 
-export const useErrorAsyncEachCases: UseErrorAsyncEachCases_F = (
+export const useErrorAsyncEachCases: _UseErrorAsyncEach_F = (
   f,
   toError = () => undefined,
   ...cases
@@ -41,20 +33,13 @@ export const useErrorAsyncEachCases: UseErrorAsyncEachCases_F = (
     '%s',
     async (_, args) => {
       const actual = () => f(...args);
+      const error = toError(...args);
 
-      await expect(actual).rejects.toThrowError(toError(...args));
+      await expect(actual).rejects.toThrowError(error);
     },
-    1000,
   );
 };
 
-export const useErrorAsyncEach: UseErrorAsyncEach_F = (
-  f,
-  toError,
-  ...cases
-) => {
-  const forward = cases.length >= 1;
-
-  if (forward) return useErrorAsyncEachCases(f, toError, ...cases);
-  return partialCall(useErrorAsyncEachCases<typeof f>, f, toError) as any;
+export const useErrorAsyncEach: UseErrorAsyncEach_F = (f, toError) => {
+  return (...cases) => useErrorAsyncEachCases(f, toError, ...cases);
 };

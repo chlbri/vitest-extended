@@ -42,7 +42,8 @@ describe('CreateTests - Coverage', () => {
         return minLength(min, val as never);
       };
 
-      const { fails, success, acceptation } = createTests(minL);
+      const { fails, success, acceptation } =
+        createTests.withoutImplementation(minL);
 
       describe('#0 => Acceptation', acceptation);
 

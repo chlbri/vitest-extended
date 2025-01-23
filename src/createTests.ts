@@ -6,11 +6,11 @@ import { useErrorAsyncEach, useErrorEach } from './each/error';
 import {
   useEachAsync,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type useEachCases,
+  type useEach,
 } from './each/pass';
-import { toString2 } from './toString2';
+import { toStringFlat } from './toStringFlat';
 
-const isAsyncFunc = <
+const isAsyncF = <
   Func extends { params: any[]; return: any } = {
     params: any[];
     return: any;
@@ -18,68 +18,59 @@ const isAsyncFunc = <
 >(
   func: any,
 ): func is Fn<Func['params'], Promise<Func['return']>> => {
-  const AsyncFunction = (async () => {}).constructor;
+  const check1 = func[Symbol.toStringTag] === 'AsyncFunction';
+  const check2 = func.constructor.name === 'AsyncFunction';
 
-  const check1 = func instanceof AsyncFunction === true;
-  const check2 = func[Symbol.toStringTag] === 'AsyncFunction';
-  const check3 = func.constructor.name === 'AsyncFunction';
-
-  return check1 || check2 || check3;
+  return check1 || check2;
 };
 
-const _createTests: _CreateTests_F = (func, toError) => {
+const _create: _CreateTests_F = (func, toError) => {
   return {
     acceptation: () => useTFA(func),
-    fails:
-      (...cases) =>
-      () => {
-        const length = cases.length;
-        const forward = length >= 1;
 
-        if (forward) {
-          const check = isAsyncFunc(func);
+    fails: (...cases) => {
+      const length = cases.length;
 
-          const useTestAsync = check
-            ? useErrorAsyncEach(func, toError)
-            : useErrorEach(func, toError);
+      return () => {
+        const check = isAsyncF(func);
+        const useTests = check
+          ? useErrorAsyncEach(func, toError)
+          : useErrorEach(func, toError);
 
-          const _cases: any = cases.map(
-            ({ invite: _invite, parameters }, iter) => {
-              const invite = `#${toString2(iter + 1, length)} => ${_invite}`;
-              const out = { invite, parameters };
-              return out;
-            },
-          );
+        const _cases: any = cases.map(
+          ({ invite: _invite, parameters }, index) => {
+            const invite = `#${toStringFlat(index + 1, length)} => ${_invite}`;
+            const out = { invite, parameters };
+            return out;
+          },
+        );
 
-          return useTestAsync(..._cases);
-        }
-      },
-    success:
-      (...cases) =>
-      () => {
-        const length = cases.length;
-        const forward = length >= 1;
+        return useTests(..._cases);
+      };
+    },
 
-        if (forward) {
-          const useTestAsync = useEachAsync(func);
+    success: (...cases) => {
+      const length = cases.length;
+      return () => {
+        const useTests = useEachAsync(func);
 
-          const _cases: any = cases.map(
-            ({ invite: _invite, parameters, expected }, iter) => {
-              const invite = `#${toString2(iter + 1, length)} => ${_invite}`;
-              const out = { invite, parameters, expected };
-              return out;
-            },
-          );
+        const _cases: any = cases.map(
+          ({ invite: _invite, parameters, expected }, index) => {
+            const invite = `#${toStringFlat(index + 1, length)} => ${_invite}`;
+            const out = { invite, parameters, expected };
+            return out;
+          },
+        );
 
-          return useTestAsync(..._cases);
-        }
-      },
+        return useTests(..._cases);
+      };
+    },
   };
 };
 
 /**
  * Creates tests for function in a better way
- * NB : We use strict-equality, {@link useEachCases|see}
+ * NB : We use strict-equality, {@link useEach|see}
  * @param library The test library
  * @param f The function to test
  * @param
@@ -111,9 +102,8 @@ const _createTests: _CreateTests_F = (func, toError) => {
  *)
  *
  */
-export const createTests: CreateTests_F = (func, toError) => {
-  return _createTests(func, toError);
-};
+export const createTests: CreateTests_F = (func, toError) =>
+  _create(func, toError);
 
 createTests.withImplementation = (f, { instanciation, name }, toError) => {
   const func = vi.fn(f);
@@ -125,7 +115,7 @@ createTests.withImplementation = (f, { instanciation, name }, toError) => {
     });
   }
 
-  return _createTests(func, toError, name);
+  return _create(func, toError, name);
 };
 
 createTests.withoutImplementation = createTests;

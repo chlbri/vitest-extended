@@ -42,12 +42,12 @@ describe('#1 => Workflows', () => {
     ];
 
     describe('#1 => Sync', () => {
-      useEach(toUpper, ...CASES);
+      useEach(toUpper)(...CASES);
     });
 
     describe('#2 => Async', () => {
       const f = async (...args: any[]) => toUpper(...args);
-      useEachAsync(f, ...CASES);
+      useEachAsync(f)(...CASES);
     });
   });
 });

@@ -1,33 +1,26 @@
-import type { Fn } from '@bemedev/types';
 import { expect, test } from 'vitest';
-import { partialCall } from '../partialCall';
 import { toArrayVitest } from '../toArray';
-import type { TestArgs, TestReturn } from '../types';
+import type {
+  _UseAsyncEach_F,
+  _UseEach_F,
+  UseAsyncEach_F,
+  UseEach_F,
+} from './pass.types';
 
 // #region Sync
 // #region Config
 
-//TODO add Error handling
-export function useEachCases<F extends Fn>(f: F, ...cases: TestArgs<F>) {
-  test.concurrent.each(toArrayVitest(cases))(
-    '%s',
-    (_, args, expected) => {
-      const value = f(...args);
-      const checkArray = Array.isArray(value) && Array.isArray(expected);
-      if (checkArray) {
-        return expect(value.sort()).toStrictEqual(expected.sort());
-      }
-      return expect(value).toStrictEqual(expected);
-    },
-    50,
-  );
-}
+const useEachCases: _UseEach_F = (func, ...cases) => {
+  test.concurrent.each(toArrayVitest(cases))('%s', (_, args, expected) => {
+    const value = func(...args);
+    const checkArray = Array.isArray(value) && Array.isArray(expected);
+    if (checkArray) {
+      return expect(value.sort()).toStrictEqual(expected.sort());
+    }
+    return expect(value).toStrictEqual(expected);
+  });
+};
 
-//TODO add Error handling
-function useEachFunction<F extends Fn>(f: F) {
-  const out = partialCall(useEachCases<F>, f);
-  return out;
-}
 // #endregion
 
 /**
@@ -42,7 +35,7 @@ function useEachFunction<F extends Fn>(f: F) {
  *
  * @else It tests every cases provided
  *
- * @param f The function to test
+ * @param func The function to test
  * @param cases The cases to test, The invite is the first arguments.
  * It's an array of Array.
  * * #1 The first arg is the invite of the test
@@ -53,28 +46,15 @@ function useEachFunction<F extends Fn>(f: F) {
  *
  * Example: For a function like ***(arg1: string)=>any***, the second arg with be : ***[string]***
  *  */
-export function useEach<F extends Fn, A extends TestArgs<F> = []>(
-  f: F,
-  ...cases: A
-) {
-  //TODO add Error handling
+export const useEach: UseEach_F = func => {
+  return (...cases) => useEachCases(func, ...cases);
+};
 
-  type Re = TestReturn<F, A>;
-
-  const forward = cases.length >= 1;
-  if (forward) {
-    return useEachCases(f, ...cases) as Re;
-  }
-  return useEachFunction(f) as Re;
-}
 // #endregion
 
 // #region Async
 // #region Config
-function useEachAsyncCases<F extends Fn<any, Promise<any>>>(
-  f: F,
-  ...cases: TestArgs<F>
-) {
+const useEachAsyncCases: _UseAsyncEach_F = (f, ...cases) => {
   test.concurrent.each(toArrayVitest(cases))(
     '%s',
     async (_, args, expected) => {
@@ -85,14 +65,9 @@ function useEachAsyncCases<F extends Fn<any, Promise<any>>>(
       }
       return expect(value).toStrictEqual(expected);
     },
-    1000,
   );
-}
+};
 
-function useEachAsyncFunction<F extends Fn<any, Promise<any>>>(f: F) {
-  const out = partialCall(useEachAsyncCases<F>, f);
-  return out;
-}
 // #endregion
 
 /**
@@ -101,19 +76,7 @@ function useEachAsyncFunction<F extends Fn<any, Promise<any>>>(f: F) {
  * But for async functions
  *
  *  */
-export function useEachAsync<
-  F extends Fn<any, Promise<any>>,
-  A extends TestArgs<F>,
->(f: F, ...cases: A) {
-  //TODO add Error handling
-
-  type Re = TestReturn<F, A>;
-
-  const forward = cases.length >= 1;
-  if (forward) {
-    return useEachAsyncCases(f, ...cases) as Re;
-  }
-
-  return useEachAsyncFunction(f) as Re;
-}
+export const useEachAsync: UseAsyncEach_F = func => {
+  return (...cases) => useEachAsyncCases(func, ...cases);
+};
 // #endregion

@@ -1,5 +1,24 @@
 # Changelog
 
+<br/>
+<br/>
+
+## [1.1.1] - 2023-10-20 14:30
+
+### Ajout
+
+- Correction des erreurs de typographie dans la documentation.
+
+### Amélioration
+
+- Optimisation des performances des tests unitaires pour une exécution plus
+  rapide.
+- 100% coverage
+- Meilleur typage
+
+<br/>
+<br/>
+
 ## [1.1.0] - 2023-10-15
 
 ### Ajout

@@ -96,11 +96,13 @@ doneTest('test avec done', done => {
 
 ## API
 
-### `useTFA`
+<br/>
+
+### `useTestFunctionAcceptation`
 
 Test d'acceptation pour une fonction.
 
-### `useTestFunctionAcceptation`
+### `useTFA`
 
 Alias de `useTFA`.
 
@@ -120,10 +122,6 @@ Version améliorée de `test.each` suivant le principe de la librairie.
 
 Version asynchrone de `useEach`.
 
-### `useEachCases`
-
-Utilisé pour tester des cas spécifiques.
-
 ### `useError`
 
 Utilisé pour tester les erreurs attendues dans une fonction.
@@ -138,6 +136,8 @@ Version asynchrone de `useError`.
 
 You can mock the function and assign a value to this function at runtime
 
+<br/>
+
 ```ts
 import { createTests } from '@bemedev/vitest-extended';
 
@@ -146,10 +146,10 @@ const add: Add_F = (numb1, numb2) => numb1 + numb2;
 const addTest = undefined as unknown as Add_F;
 
 describe('#2 => CreateTests, funcTest is initialazed after', () => {
-  const useTests = createTests(
-    addTest,
-    () => add /* Assign addTest to add function at runtime */,
-  );
+  const useTests = createTests.withImplementation(addTest, {
+    instanciation: () => add,
+    name: 'add', // Add a name because name is not provided at static time
+  });
 
   useTests(
     {

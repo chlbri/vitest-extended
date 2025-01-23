@@ -10,7 +10,7 @@ export const toArrayVitest: ToArrayVitest_F = args => {
 
 toArrayVitest.error = args => {
   return args.map(({ invite, parameters: params }) => {
-    const parameters = toArray(params);
+    const parameters = toArray.generic(params);
     return [invite, parameters] as any;
   });
 };
