@@ -3,12 +3,20 @@
 <br/>
 <br/>
 
+## [1.1.4] - 2023-10-24 12:40
+
+### Ajout
+
+- Add an option to provide custom string for error handling
+
+<br/>
+<br/>
+
 ## [1.1.3] - 2023-10-24 09:00
 
-### AJout
+### Ajout
 
 - Peer dependencies vitest upgraded !
-
 
 <br/>
 <br/>

@@ -38,19 +38,21 @@ describe('CreateTests - Coverage', () => {
 
   describe('#3 => Test errors', () => {
     describe('#1 => minLength', () => {
-      const minL = (min: number, val: string): string => {
-        return minLength(min, val as never);
-      };
-
       const { fails, success, acceptation } =
-        createTests.withoutImplementation(minL);
+        createTests.withoutImplementation(minLength, (min, value) => {
+          return `"${value}" is shorter or equal than ${min}`;
+        });
 
       describe('#0 => Acceptation', acceptation);
 
       describe(
         '#1 => Errors',
         fails(
-          { invite: 'Equals', parameters: [2, 're'] },
+          {
+            invite: 'Equals',
+            parameters: [2, 're'],
+            error: '"re" is shorter or equal than 2',
+          },
           { invite: 'Less -1', parameters: [2, 'r'] },
           { invite: 'Less -2', parameters: [2, ''] },
         ),
@@ -106,13 +108,45 @@ describe('CreateTests - Coverage', () => {
     });
 
     describe('#3 => Promise rejects', () => {
-      const func = async () => await Promise.reject('ARGS');
+      describe('#1 => Promise rejects "ARGS1"', () => {
+        const error = 'ARGS';
+        const func = async () => await Promise.reject(error);
 
-      const { fails } = createTests(func);
+        const { fails } = createTests(func, () => error);
 
-      fails({
-        invite: '1',
-      })();
+        describe(
+          '#1 => fails',
+          fails(
+            {
+              invite: 'With provided error',
+              error,
+            },
+            {
+              invite: 'Without provided error',
+            },
+          ),
+        );
+      });
+
+      describe('#1 => Promise rejects "ARGS2"', () => {
+        const error = 'ARGS';
+        const func = async () => await Promise.reject(error);
+
+        const { fails } = createTests(func);
+
+        describe(
+          '#1 => fails',
+          fails(
+            {
+              invite: 'With provided error',
+              error,
+            },
+            {
+              invite: 'Without provided error',
+            },
+          ),
+        );
+      });
     });
   });
 });

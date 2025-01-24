@@ -38,9 +38,9 @@ const _create: _CreateTests_F = (func, toError) => {
           : useErrorEach(func, toError);
 
         const _cases: any = cases.map(
-          ({ invite: _invite, parameters }, index) => {
+          ({ invite: _invite, parameters, error }, index) => {
             const invite = `#${toStringFlat(index + 1, length)} => ${_invite}`;
-            const out = { invite, parameters };
+            const out = { invite, parameters, error };
             return out;
           },
         );

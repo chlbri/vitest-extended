@@ -24,11 +24,13 @@ export type TestArgs2<F extends Fn> = [
 
 export type TestErrors<F extends Fn> = ({
   invite: string;
+  error?: string;
 } & SimpleParams<F>)[];
 
 export type TestErrors2<F extends Fn> = [
   invite: string,
   parameters: Parameters<F>,
+  error?: string,
 ][];
 
 export interface ToArray_F {
