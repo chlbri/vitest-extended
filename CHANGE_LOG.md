@@ -3,6 +3,16 @@
 <br/>
 <br/>
 
+## [1.1.3] - 2023-10-24 09:00
+
+### AJout
+
+- Peer dependencies vitest upgraded !
+
+
+<br/>
+<br/>
+
 ## [1.1.1] - 2023-10-20 14:30
 
 ### Ajout
