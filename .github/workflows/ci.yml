@@ -20,9 +20,7 @@ jobs:
 
     steps:
       - name: Checkout pnpm repo
-        uses: 'chlbri/pnpmi-action@main'
-        with:
-          branch: ${{ inputs.branch }}
+        run: pnpm install
 
       - name: lint
         run: pnpm run lint
