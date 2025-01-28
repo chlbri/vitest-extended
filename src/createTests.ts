@@ -24,9 +24,9 @@ const isAsyncF = <
   return check1 || check2;
 };
 
-const _create: _CreateTests_F = (func, toError) => {
+const _create: _CreateTests_F = (func, toError, name) => {
   return {
-    acceptation: () => useTFA(func),
+    acceptation: () => useTFA(func, name),
 
     fails: (...cases) => {
       const length = cases.length;

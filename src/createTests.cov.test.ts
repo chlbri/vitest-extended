@@ -9,10 +9,15 @@ describe('CreateTests - Coverage', () => {
   const addTest = t.anify<Add_F>();
 
   describe('#2 => CreateTests, funcTest is initialazed', () => {
-    const { success } = createTests.withImplementation(addTest, {
-      instanciation: () => add,
-      name: 'add',
-    });
+    const { success, acceptation } = createTests.withImplementation(
+      addTest,
+      {
+        instanciation: () => add,
+        name: 'add',
+      },
+    );
+
+    describe('#0 => Acceptation', acceptation);
 
     describe(
       'Success',
