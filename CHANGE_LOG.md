@@ -3,25 +3,31 @@
 <br/>
 <br/>
 
-## [1.1.4] - 2023-10-24 12:40
+## [1.1.5] - 2023-01-24 12:40
+
+### Fix
+
+- Fix name inside acceptation tests
+
+<br/>
+
+## [1.1.4] - 2025-01-24 12:40
 
 ### Ajout
 
 - Add an option to provide custom string for error handling
 
 <br/>
-<br/>
 
-## [1.1.3] - 2023-10-24 09:00
+## [1.1.3] - 2025-01-24 09:00
 
 ### Ajout
 
 - Peer dependencies vitest upgraded !
 
 <br/>
-<br/>
 
-## [1.1.1] - 2023-10-20 14:30
+## [1.1.1] - 2025-01-20 14:30
 
 ### Ajout
 
@@ -35,9 +41,8 @@
 - Meilleur typage
 
 <br/>
-<br/>
 
-## [1.1.0] - 2023-10-15
+## [1.1.0] - 2025-01-15
 
 ### Ajout
 
@@ -55,7 +60,6 @@
   erreurs intermittentes.
 
 <br/>
-<br/>
 
 ## [1.0.0] - 2023-10-10
 
@@ -67,7 +71,6 @@
 - Possibilité de mocker la fonction avant les tests avec la function
   "createTests"
 
-<br/>
 <br/>
 
 ## Auteur
