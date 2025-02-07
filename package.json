@@ -1,6 +1,6 @@
 {
   "name": "@bemedev/vitest-extended",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Extensions to build tests in vitest",
   "type": "module",
   "main": "lib/index.js",
@@ -9,6 +9,23 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/chlbri/vitest-extended"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs",
+      "types": "./lib/index.d.ts",
+      "node": "./lib/index.cjs",
+      "default": "./lib/index.js"
+    },
+    "./*": {
+      "import": "./lib/*.js",
+      "require": "./lib/*.cjs",
+      "types": "./lib/*.d.ts",
+      "node": "./lib/*.cjs",
+      "default": "./lib/*.js"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "build": "pnpm run lib:rm && pnpm run rollup",
