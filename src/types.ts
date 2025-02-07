@@ -52,3 +52,9 @@ export type ToCreateTestsWithImplementation_F = <F extends Fn>(
   f: F,
   implementation: { instanciation: () => Promise<F> | F; name: string },
 ) => (...cases: TestArgs<F>) => void;
+
+export type FakeWaiter_F = (params: {
+  ms?: number;
+  times?: number;
+  fake: boolean;
+}) => Promise<void>;

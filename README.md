@@ -186,6 +186,14 @@ MIT
 ...
 </summary>
 
+## [1.2.2] - 2025-02-08 00:00
+
+### Fix
+
+- fix fakeWaiter, not use directly vi
+
+<br/>
+
 ## [1.2.0] - 2025-02-08 00:00
 
 ### Added

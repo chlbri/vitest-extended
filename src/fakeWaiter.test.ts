@@ -24,7 +24,7 @@ describe('fakeWaiter', () => {
     });
 
     test('#3=> Wait', async () => {
-      await fakeWaiter(1000);
+      await fakeWaiter({ ms: 1000, fake: false });
     });
 
     describe('#4 => result is defined', () => {
@@ -55,7 +55,7 @@ describe('fakeWaiter', () => {
     });
 
     test('#3=> Wait', async () => {
-      await fakeWaiter(1000);
+      await fakeWaiter({ ms: 1000, fake: vi.isFakeTimers() });
     });
 
     describe('#4 => result is defined', () => {
