@@ -39,7 +39,7 @@ export const createFakeWaiter: FakeWaiter = vi => {
 createFakeWaiter.withDefaultDelay = (vi, ms = 0) => {
   return (index, times = 1) => {
     const invite = buildInvite(index, ms, times);
-    const fn = createFakeWaiter(vi);
+    const fn = () => createFakeWaiter(vi)(ms, times);
     return [invite, fn] as const;
   };
 };
@@ -47,7 +47,7 @@ createFakeWaiter.withDefaultDelay = (vi, ms = 0) => {
 createFakeWaiter.all = vi => {
   return (index, ms = 0, times = 1) => {
     const invite = buildInvite(index, ms, times);
-    const fn = createFakeWaiter(vi);
+    const fn = () => createFakeWaiter(vi)(ms, times);
     return [invite, fn] as const;
   };
 };

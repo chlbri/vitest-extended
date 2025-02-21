@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createFakeWaiter } from './fakeWaiter';
 
 describe('fakeWaiter', () => {
-  it('should wait for the specified time', async () => {
+  it('#01 => should wait for the specified time', async () => {
     const waiter = createFakeWaiter(vi);
     const start = Date.now();
     await waiter(100);
@@ -10,7 +10,7 @@ describe('fakeWaiter', () => {
     expect(end - start).toBeGreaterThanOrEqual(100);
   });
 
-  it('should wait multiple times', async () => {
+  it('02 => should wait multiple times', async () => {
     vi.useFakeTimers();
     const waiter = createFakeWaiter(vi);
     const start = Date.now();
@@ -20,7 +20,7 @@ describe('fakeWaiter', () => {
     vi.useRealTimers();
   });
 
-  it('should use fake timers if available', async () => {
+  it('#03 => should use fake timers if available', async () => {
     vi.useFakeTimers();
     const waiter = createFakeWaiter(vi);
     const start = Date.now();
@@ -30,13 +30,16 @@ describe('fakeWaiter', () => {
     vi.useRealTimers();
   });
 
-  it('should build invite with default delay', () => {
+  it('#04 => should build invite with default delay', () => {
     const [invite] = createFakeWaiter.withDefaultDelay(vi, 100)(1, 2);
     expect(invite).toBe('#1 Wait for 100ms times 2');
   });
 
-  it('should build invite for all', () => {
+  it('#05 => should build invite for all', () => {
     const [invite] = createFakeWaiter.all(vi)(1, 100, 2);
     expect(invite).toBe('#1 Wait for 100ms times 2');
   });
+
+  it(...createFakeWaiter.all(vi)(6, 100, 2));
+  it(...createFakeWaiter.withDefaultDelay(vi, 100)(7, 1));
 });

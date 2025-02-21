@@ -193,6 +193,15 @@ MIT
 ...
 </summary>
 
+## [1.3.1] - 2025-02-21 21:00
+
+### Fix
+
+- fix createFakeWaiter
+- 100% coverage
+
+<br/>
+
 ## [1.3.0] - 2025-02-21 21:00
 
 ### Fix
