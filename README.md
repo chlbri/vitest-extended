@@ -9,9 +9,17 @@ Extensions pour faciliter la création de tests avec Vitest.
 
 ```sh
 npm install @bemedev/vitest-extended
-##ou
+```
+
+ou
+
+```sh
 pnpm add @bemedev/vitest-extended
-##ou
+```
+
+ou
+
+```sh
 yarn add @bemedev/vitest-extended
 ```
 
@@ -122,10 +130,6 @@ Version améliorée de `test.each` suivant le principe de la librairie.
 
 Version asynchrone de `useEach`.
 
-### `useError`
-
-Utilisé pour tester les erreurs attendues dans une fonction.
-
 ### `useErrorAsync`
 
 Version asynchrone de `useError`.
@@ -146,27 +150,30 @@ const add: Add_F = (numb1, numb2) => numb1 + numb2;
 const addTest = undefined as unknown as Add_F;
 
 describe('#2 => CreateTests, funcTest is initialazed after', () => {
-  const useTests = createTests.withImplementation(addTest, {
+  const { success } = createTests.withImplementation(addTest, {
     instanciation: () => add,
     name: 'add', // Add a name because name is not provided at static time
   });
 
-  useTests(
-    {
-      invite: '0 + 0 = 0',
-      parameters: [0, 0],
-      expected: 0,
-    },
-    {
-      invite: '99 + 1 = 0',
-      parameters: [99, 1],
-      expected: 100,
-    },
-    {
-      invite: '1 + 1 = 0',
-      parameters: [1, 1],
-      expected: 2,
-    },
+  describe(
+    '#01 => success',
+    success(
+      {
+        invite: '0 + 0 = 0',
+        parameters: [0, 0],
+        expected: 0,
+      },
+      {
+        invite: '99 + 1 = 0',
+        parameters: [99, 1],
+        expected: 100,
+      },
+      {
+        invite: '1 + 1 = 0',
+        parameters: [1, 1],
+        expected: 2,
+      },
+    ),
   );
 });
 ```
@@ -185,6 +192,18 @@ MIT
 <summary>
 ...
 </summary>
+
+## [1.3.0] - 2025-02-21 21:00
+
+### Fix
+
+- Corrected issue with async error handling in `useErrorAsyncEachCases`.
+
+### Added
+
+- Add fakeWaiter
+
+<br/>
 
 ## [1.2.3] - 2025-02-08 00:00
 

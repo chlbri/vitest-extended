@@ -3,6 +3,18 @@
 <br/>
 <br/>
 
+## [1.3.0] - 2025-02-21 21:00
+
+### Fix
+
+- Corrected issue with async error handling in `useErrorAsyncEachCases`.
+
+### Added
+
+- Add fakeWaiter
+
+<br/>
+
 ## [1.2.3] - 2025-02-08 00:00
 
 ### Deleted

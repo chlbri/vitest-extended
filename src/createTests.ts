@@ -1,28 +1,13 @@
-import type { Fn } from '@bemedev/types';
 import { beforeAll, vi } from 'vitest';
 import { useTFA } from './acceptation';
 import type { _CreateTests_F, CreateTests_F } from './createTests.types';
-import { useErrorAsyncEach, useErrorEach } from './each/error';
+import { useErrorAsyncEach } from './each/error';
 import {
   useEachAsync,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type useEach,
 } from './each/pass';
 import { toStringFlat } from './toStringFlat';
-
-const isAsyncF = <
-  Func extends { params: any[]; return: any } = {
-    params: any[];
-    return: any;
-  },
->(
-  func: any,
-): func is Fn<Func['params'], Promise<Func['return']>> => {
-  const check1 = func[Symbol.toStringTag] === 'AsyncFunction';
-  const check2 = func.constructor.name === 'AsyncFunction';
-
-  return check1 || check2;
-};
 
 const _create: _CreateTests_F = (func, toError, name) => {
   return {
@@ -32,10 +17,7 @@ const _create: _CreateTests_F = (func, toError, name) => {
       const length = cases.length;
 
       return () => {
-        const check = isAsyncF(func);
-        const useTests = check
-          ? useErrorAsyncEach(func, toError)
-          : useErrorEach(func, toError);
+        const useTests = useErrorAsyncEach(func, toError);
 
         const _cases: any = cases.map(
           ({ invite: _invite, parameters, error }, index) => {

@@ -6,7 +6,7 @@ import { createTests } from './createTests';
 describe('CreateTests - Coverage', () => {
   type Add_F = (numb1: number, numb2: number) => number;
   const add: Add_F = (numb1, numb2) => numb1 + numb2;
-  const addTest = t.anify<Add_F>();
+  const addTest = t.unknown<Add_F>();
 
   describe('#2 => CreateTests, funcTest is initialazed', () => {
     const { success, acceptation } = createTests.withImplementation(
@@ -135,7 +135,7 @@ describe('CreateTests - Coverage', () => {
 
       describe('#1 => Promise rejects "ARGS2"', () => {
         const error = 'ARGS';
-        const func = async () => await Promise.reject(error);
+        const func = () => Promise.reject(error);
 
         const { fails } = createTests(func);
 
