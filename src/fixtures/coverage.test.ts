@@ -2,7 +2,7 @@ import { describe } from 'vitest';
 import { createTests } from '../createTests';
 import { addMany, expected, noArgs } from './coverage';
 
-describe('funcNoArgs - to cov', () => {
+describe('#1 => funcNoArgs - to cov', () => {
   const { success } = createTests(noArgs);
 
   success(
@@ -11,7 +11,16 @@ describe('funcNoArgs - to cov', () => {
   )();
 });
 
-describe('addMany - to cov', () => {
+describe('#2 => funcNoArgs and transform to "number:4" - to cov', () => {
+  const { success } = createTests(noArgs, () => 4);
+
+  success(
+    { expected: 4, invite: 'No Args' },
+    { expected: 4, invite: 'No Args - again' },
+  )();
+});
+
+describe('#3 => addMany - to cov', () => {
   const { success } = createTests(addMany);
 
   success(

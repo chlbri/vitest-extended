@@ -58,3 +58,12 @@ export type FakeWaiter_F = (params: {
   times?: number;
   fake: boolean;
 }) => Promise<void>;
+
+export type NextFn<F extends Fn, R = any> = Fn<[ReturnType<F>], R>;
+
+export type Identity<F extends Fn> = Fn<[ReturnType<F>], ReturnType<F>>;
+
+export type ChainedFn<F extends Fn, T extends NextFn<F>> = Fn<
+  Parameters<F>,
+  ReturnType<T>
+>;

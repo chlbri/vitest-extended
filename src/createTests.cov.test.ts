@@ -2,6 +2,7 @@ import { maxLength, minLength, multiChar } from '@bemedev/basicfunc';
 import { t } from '@bemedev/types';
 import { describe } from 'vitest';
 import { createTests } from './createTests';
+import { identity } from './identity';
 
 describe('CreateTests - Coverage', () => {
   type Add_F = (numb1: number, numb2: number) => number;
@@ -44,9 +45,13 @@ describe('CreateTests - Coverage', () => {
   describe('#3 => Test errors', () => {
     describe('#1 => minLength', () => {
       const { fails, success, acceptation } =
-        createTests.withoutImplementation(minLength, (min, value) => {
-          return `"${value}" is shorter or equal than ${min}`;
-        });
+        createTests.withoutImplementation(
+          minLength,
+          identity,
+          (min, value) => {
+            return `"${value}" is shorter or equal than ${min}`;
+          },
+        );
 
       describe('#0 => Acceptation', acceptation);
 
@@ -152,6 +157,29 @@ describe('CreateTests - Coverage', () => {
           ),
         );
       });
+    });
+
+    describe('#4 => The function has no errors, but transform throw error', () => {
+      const { fails } = createTests(
+        () => 0,
+        () => {
+          throw new Error('Cov');
+        },
+      );
+
+      describe(
+        '#1 => Fails',
+        fails(
+          {
+            invite: 'Cov',
+            error: 'Cov',
+          },
+          {
+            invite: 'Cov - again',
+            error: 'Cov',
+          },
+        ),
+      );
     });
   });
 });

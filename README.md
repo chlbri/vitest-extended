@@ -138,7 +138,7 @@ Version asynchrone de `useError`.
 
 ## NB:
 
-You can mock the function and assign a value to this function at runtime
+- You can mock the function and assign a value to this function at runtime
 
 <br/>
 
@@ -178,6 +178,30 @@ describe('#2 => CreateTests, funcTest is initialazed after', () => {
 });
 ```
 
+<br/>
+
+- And you can transform the function to test
+
+```ts
+import { createTests } from '@bemedev/vitest-extended';
+
+const noArgs = () => 'no args';
+
+describe('#1 => Transform', () => {
+  const { success } = createTests(noArgs, () => 'result');
+
+  describe(
+    '#01 => success',
+    success({
+      invite: 'no args',
+      parameters: [],
+      // Here the result is transformed from value "no args" to "result"
+      expected: 'result',
+    }),
+  );
+});
+```
+
 ## Licence
 
 MIT
@@ -192,6 +216,15 @@ MIT
 <summary>
 ...
 </summary>
+
+## [1.3.2] - 2025-06-15 19:40
+
+### Added
+
+- Add transformers...
+- 100% coverage
+
+<br/>
 
 ## [1.3.1] - 2025-02-21 21:00
 

@@ -1,30 +1,46 @@
 import type { Fn } from '@bemedev/types';
-import type { SimpleParams, TestArgs } from '../types';
+import type {
+  ChainedFn,
+  Identity,
+  NextFn,
+  SimpleParams,
+  TestArgs,
+} from '../types';
 
-export type _UseEach_F = <F extends Fn>(
+export type _UseEach_F = <F extends Fn, T extends NextFn<F> = Identity<F>>(
   f: F,
-  ...cases: TestArgs<F>
+  transform?: T,
+  ...cases: TestArgs<ChainedFn<F, T>>
 ) => void;
 
-export type UseEach_F = <F extends Fn>(
+export type UseEach_F = <F extends Fn, T extends NextFn<F> = Identity<F>>(
   f: F,
+  transform?: T,
 ) => (
   ...cases: ({
     invite: string;
-    expected: Awaited<ReturnType<F>>;
-  } & SimpleParams<F, Parameters<F>>)[]
+    expected: Awaited<ReturnType<T>>;
+  } & SimpleParams<F>)[]
 ) => void;
 
-export type _UseAsyncEach_F = <F extends Fn<any, Promise<any>>>(
+export type _UseAsyncEach_F = <
+  F extends Fn<any, Promise<any>>,
+  T extends NextFn<F> = Identity<F>,
+>(
   f: F,
-  ...cases: TestArgs<F>
+  transform?: T,
+  ...cases: TestArgs<ChainedFn<F, T>>
 ) => void;
 
-export type UseAsyncEach_F = <F extends Fn<any, Promise<any>>>(
+export type UseAsyncEach_F = <
+  F extends Fn<any, Promise<any>>,
+  T extends NextFn<F> = Identity<F>,
+>(
   f: F,
+  transform?: T,
 ) => (
   ...cases: ({
     invite: string;
-    expected: Awaited<ReturnType<F>>;
-  } & SimpleParams<F, Parameters<F>>)[]
+    expected: Awaited<ReturnType<T>>;
+  } & SimpleParams<F>)[]
 ) => void;

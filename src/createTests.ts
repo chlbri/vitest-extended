@@ -9,7 +9,7 @@ import {
 } from './each/pass';
 import { toStringFlat } from './toStringFlat';
 
-const _create: _CreateTests_F = (func, toError, name) => {
+const _create: _CreateTests_F = (func, transform, toError, name) => {
   return {
     acceptation: () => useTFA(func, name),
 
@@ -17,7 +17,7 @@ const _create: _CreateTests_F = (func, toError, name) => {
       const length = cases.length;
 
       return () => {
-        const useTests = useErrorAsyncEach(func, toError);
+        const useTests = useErrorAsyncEach(func, transform, toError);
 
         const _cases: any = cases.map(
           ({ invite: _invite, parameters, error }, index) => {
@@ -34,7 +34,7 @@ const _create: _CreateTests_F = (func, toError, name) => {
     success: (...cases) => {
       const length = cases.length;
       return () => {
-        const useTests = useEachAsync(func);
+        const useTests = useEachAsync(func, transform);
 
         const _cases: any = cases.map(
           ({ invite: _invite, parameters, expected }, index) => {
@@ -84,10 +84,15 @@ const _create: _CreateTests_F = (func, toError, name) => {
  *)
  *
  */
-export const createTests: CreateTests_F = (func, toError) =>
-  _create(func, toError);
+export const createTests: CreateTests_F = (func, transform, toError) =>
+  _create(func, transform, toError);
 
-createTests.withImplementation = (f, { instanciation, name }, toError) => {
+createTests.withImplementation = (
+  f,
+  { instanciation, name },
+  transform,
+  toError,
+) => {
   const func = vi.fn(f);
 
   if (instanciation) {
@@ -97,7 +102,7 @@ createTests.withImplementation = (f, { instanciation, name }, toError) => {
     });
   }
 
-  return _create(func, toError, name);
+  return _create(func, transform, toError, name);
 };
 
 createTests.withoutImplementation = createTests;

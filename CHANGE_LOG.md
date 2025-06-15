@@ -3,6 +3,15 @@
 <br/>
 <br/>
 
+## <strong>[1.3.2]</strong> - _2025-06-15 19:40_
+
+### Added
+
+- Add transformers...
+- 100% coverage
+
+<br/>
+
 ## [1.3.1] - 2025-02-21 21:00
 
 ### Fix

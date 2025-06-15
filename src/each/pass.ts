@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest';
+import { identity } from '../identity';
 import { toArrayVitest } from '../toArray';
 import type {
   _UseAsyncEach_F,
@@ -10,9 +11,13 @@ import type {
 // #region Sync
 // #region Config
 
-const useEachCases: _UseEach_F = (func, ...cases) => {
+const useEachCases: _UseEach_F = (
+  func,
+  transform = identity as any,
+  ...cases
+) => {
   test.concurrent.each(toArrayVitest(cases))('%s', (_, args, expected) => {
-    const value = func(...args);
+    const value = transform(func(...args));
     const checkArray = Array.isArray(value) && Array.isArray(expected);
     if (checkArray) {
       return expect(value.sort()).toStrictEqual(expected.sort());
@@ -46,19 +51,23 @@ const useEachCases: _UseEach_F = (func, ...cases) => {
  *
  * Example: For a function like ***(arg1: string)=>any***, the second arg with be : ***[string]***
  *  */
-export const useEach: UseEach_F = func => {
-  return (...cases) => useEachCases(func, ...cases);
+export const useEach: UseEach_F = (func, transform) => {
+  return (...cases) => useEachCases(func, transform, ...cases);
 };
 
 // #endregion
 
 // #region Async
 // #region Config
-const useEachAsyncCases: _UseAsyncEach_F = (f, ...cases) => {
+const useEachAsyncCases: _UseAsyncEach_F = (
+  f,
+  transform = identity as any,
+  ...cases
+) => {
   test.concurrent.each(toArrayVitest(cases))(
     '%s',
     async (_, args, expected) => {
-      const value = await f(...args);
+      const value = transform(await f(...args));
       const checkArray = Array.isArray(value) && Array.isArray(expected);
       if (checkArray) {
         return expect(value.sort()).toStrictEqual(expected.sort());
@@ -76,7 +85,7 @@ const useEachAsyncCases: _UseAsyncEach_F = (f, ...cases) => {
  * But for async functions
  *
  *  */
-export const useEachAsync: UseAsyncEach_F = func => {
-  return (...cases) => useEachAsyncCases(func, ...cases);
+export const useEachAsync: UseAsyncEach_F = (func, transform) => {
+  return (...cases) => useEachAsyncCases(func, transform, ...cases);
 };
 // #endregion
