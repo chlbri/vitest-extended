@@ -84,14 +84,14 @@ const _create: _CreateTests_F = (func, transform, toError, name) => {
  *)
  *
  */
-export const createTests: CreateTests_F = (func, transform, toError) =>
-  _create(func, transform, toError);
+export const createTests: CreateTests_F = (func, args) => {
+  const { transform, toError } = args || {};
+  return _create(func, transform, toError);
+};
 
 createTests.withImplementation = (
   f,
-  { instanciation, name },
-  transform,
-  toError,
+  { instanciation, name, transform, toError },
 ) => {
   const func = vi.fn(f);
 

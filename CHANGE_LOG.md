@@ -3,6 +3,13 @@
 <br/>
 <br/>
 
+## **[1.3.3]** - _2025-06-15 19:57_
+
+### Fix
+
+- Simplify function **createTests**
+- 100% coverage
+
 ## <strong>[1.3.2]</strong> - _2025-06-15 19:40_
 
 ### Added

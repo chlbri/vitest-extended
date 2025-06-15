@@ -12,7 +12,7 @@ describe('#1 => funcNoArgs - to cov', () => {
 });
 
 describe('#2 => funcNoArgs and transform to "number:4" - to cov', () => {
-  const { success } = createTests(noArgs, () => 4);
+  const { success } = createTests(noArgs, { transform: () => 4 });
 
   success(
     { expected: 4, invite: 'No Args' },

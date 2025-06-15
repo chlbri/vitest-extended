@@ -28,8 +28,7 @@ export type _CreateTests_F = <
 export interface CreateTests_F {
   <F extends Fn, T extends NextFn<F> = Identity<F>>(
     func: F,
-    transform?: T,
-    toError?: ToError_F<F>,
+    options?: { transform?: T; toError?: ToError_F<F> },
   ): ReturnR<ChainedFn<F, T>>;
 
   withImplementation: <F extends Fn, T extends NextFn<F> = Identity<F>>(
@@ -37,14 +36,13 @@ export interface CreateTests_F {
     params: {
       instanciation: () => Promise<F> | F;
       name: string;
+      transform?: T;
+      toError?: ToError_F<F>;
     },
-    transform?: T,
-    toError?: ToError_F<F>,
   ) => ReturnR<Mock<ChainedFn<F, T>>>;
 
   withoutImplementation: <F extends Fn, T extends NextFn<F> = Identity<F>>(
     func: F,
-    transform?: T,
-    toError?: ToError_F<F>,
+    options?: { transform?: T; toError?: ToError_F<F> },
   ) => ReturnR<ChainedFn<F, T>>;
 }

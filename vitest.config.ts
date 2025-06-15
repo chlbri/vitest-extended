@@ -28,6 +28,7 @@ export default defineConfig({
     typecheck: {
       enabled: true,
       ignoreSourceErrors: true,
+      include: ['src/**/*.test.ts', 'src/**/*.tests-d.ts'],
     },
   },
 });

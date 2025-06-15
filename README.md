@@ -56,7 +56,10 @@ import { createTests } from '@bemedev/vitest-extended';
 const add = (a: number, b: number) => a + b;
 
 describe('Addition', () => {
-  const { success } = createTests(add);
+  const { success } = createTests(
+    add,
+    {}, // all options (optional)
+  );
 
   success(
     { invite: 'addition de 1 et 2', parameters: [1, 2], expected: 3 },
@@ -188,7 +191,7 @@ import { createTests } from '@bemedev/vitest-extended';
 const noArgs = () => 'no args';
 
 describe('#1 => Transform', () => {
-  const { success } = createTests(noArgs, () => 'result');
+  const { success } = createTests(noArgs, { transform: () => 'result' });
 
   describe(
     '#01 => success',
@@ -217,91 +220,98 @@ MIT
 ...
 </summary>
 
-## [1.3.2] - 2025-06-15 19:40
+### **[1.3.3]** - _2025-06-15 19:57_
 
-### Added
+#### Fix
+
+- Simplify function **createTests**
+- 100% coverage
+
+### [1.3.2] - 2025-06-15 19:40
+
+#### Added
 
 - Add transformers...
 - 100% coverage
 
 <br/>
 
-## [1.3.1] - 2025-02-21 21:00
+### [1.3.1] - 2025-02-21 21:00
 
-### Fix
+#### Fix
 
 - fix createFakeWaiter
 - 100% coverage
 
 <br/>
 
-## [1.3.0] - 2025-02-21 21:00
+### [1.3.0] - 2025-02-21 21:00
 
-### Fix
+#### Fix
 
 - Corrected issue with async error handling in `useErrorAsyncEachCases`.
 
-### Added
+#### Added
 
 - Add fakeWaiter
 
 <br/>
 
-## [1.2.3] - 2025-02-08 00:00
+### [1.2.3] - 2025-02-08 00:00
 
-### Deleted
+#### Deleted
 
 - remove fakeWaiter,
 
 <br>
 
-## [1.2.2] - 2025-02-08 00:00
+### [1.2.2] - 2025-02-08 00:00
 
-### Fix
+#### Fix
 
 - fix fakeWaiter, not use directly vi
 
 <br/>
 
-## [1.2.0] - 2025-02-08 00:00
+### [1.2.0] - 2025-02-08 00:00
 
-### Added
+#### Added
 
 - add fakeWaiter
 
 <br/>
 
-## [1.1.6] - 2025-01-24 13:00
+### [1.1.6] - 2025-01-24 13:00
 
-### Fix
+#### Fix
 
 - Fix name inside acceptation tests
 
 <br/>
 
-## [1.1.4] - 2025-01-24 12:40
+### [1.1.4] - 2025-01-24 12:40
 
-### Ajout
+#### Ajout
 
 - Add an option to provide custom string for error handling
 
 <br/>
 
-## [1.1.3] - 2025-01-24 09:00
+### [1.1.3] - 2025-01-24 09:00
 
-### Ajout
+#### Ajout
 
 - Peer dependencies vitest upgraded !
 
 <br/>
 
-## [1.1.1] - 2025-01-20 14:30
+### [1.1.1] - 2025-01-20 14:30
 
-### Ajout
+#### Ajout
 
 - Correction des erreurs de typographie dans la documentation.
 
-### Amélioration
+#### Amélioration
 
 - Optimisation des performances des tests unitaires pour une exécution plus
   rapide.
@@ -310,28 +320,28 @@ MIT
 
 <br/>
 
-## [1.1.0] - 2025-01-15
+### [1.1.0] - 2025-01-15
 
-### Ajout
+#### Ajout
 
 - Ajout de nouvelles assertions personnalisées pour Vitest.
 - Ajout de tests unitaires pour tester les erreurs dans les fonctions
 
-### Modification
+#### Modification
 
 - Amélioration des performances des fonctions existantes.
 - Refactorisation du code pour une meilleure lisibilité et maintenabilité.
 
-### Correction
+#### Correction
 
 - Correction d'un bug mineur dans la fonction `createTests` qui causait des
   erreurs intermittentes.
 
 <br/>
 
-## [1.0.0] - 2023-10-10
+### [1.0.0] - 2023-10-10
 
-### Ajouté
+#### Ajouté
 
 - Initialisation du projet avec les extensions pour Vitest.
 - Création des fonctions : `acceptation`, `createTests`, `done`, `each`,
