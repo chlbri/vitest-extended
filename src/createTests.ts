@@ -37,9 +37,9 @@ const _create: _CreateTests_F = (func, transform, toError, name) => {
         const useTests = useEachAsync(func, transform);
 
         const _cases: any = cases.map(
-          ({ invite: _invite, parameters, expected }, index) => {
+          ({ invite: _invite, parameters, expected, test }, index) => {
             const invite = `#${toStringFlat(index + 1, length)} => ${_invite}`;
-            const out = { invite, parameters, expected };
+            const out = { invite, parameters, expected, test };
             return out;
           },
         );

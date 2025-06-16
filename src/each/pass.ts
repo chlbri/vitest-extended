@@ -67,7 +67,7 @@ const useEachAsyncCases: _UseAsyncEach_F = (
     '%s',
     async (_, args, expected, test = defaultEquality) => {
       const _value = await f(...args);
-      const value = (transform(_value), expected);
+      const value = transform(_value);
       return test(value, expected);
     },
   );

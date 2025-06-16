@@ -3,6 +3,13 @@
 <br/>
 <br/>
 
+## **[1.3.5]** - _2025-06-16 15:04_
+
+### Fix
+
+- Test option was not used inside tests
+- 100% coverage
+
 ## **[1.3.4]** - _2025-06-16 14:45_
 
 ### Fix
