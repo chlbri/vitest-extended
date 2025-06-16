@@ -1,11 +1,5 @@
 import type { Fn } from '@bemedev/types';
-import type {
-  ChainedFn,
-  Identity,
-  NextFn,
-  SimpleParams,
-  TestArgs,
-} from '../types';
+import type { ChainedFn, Identity, NextFn, TestArgs } from '../types';
 
 export type _UseEach_F = <F extends Fn, T extends NextFn<F> = Identity<F>>(
   f: F,
@@ -16,12 +10,7 @@ export type _UseEach_F = <F extends Fn, T extends NextFn<F> = Identity<F>>(
 export type UseEach_F = <F extends Fn, T extends NextFn<F> = Identity<F>>(
   f: F,
   transform?: T,
-) => (
-  ...cases: ({
-    invite: string;
-    expected: Awaited<ReturnType<T>>;
-  } & SimpleParams<F>)[]
-) => void;
+) => (...cases: TestArgs<ChainedFn<F, T>>) => void;
 
 export type _UseAsyncEach_F = <
   F extends Fn<any, Promise<any>>,
@@ -38,9 +27,4 @@ export type UseAsyncEach_F = <
 >(
   f: F,
   transform?: T,
-) => (
-  ...cases: ({
-    invite: string;
-    expected: Awaited<ReturnType<T>>;
-  } & SimpleParams<F>)[]
-) => void;
+) => (...cases: TestArgs<ChainedFn<F, T>>) => void;

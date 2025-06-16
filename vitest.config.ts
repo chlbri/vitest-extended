@@ -8,7 +8,12 @@ export default defineConfig({
   plugins: [
     aliasTs(tsconfig as any),
     exclude({
-      ignoreCoverageFiles: ['**/index.ts', '**/types.ts', '**/*.types.ts'],
+      ignoreCoverageFiles: [
+        '**/index.ts',
+        '**/types.ts',
+        '**/*.types.ts',
+        './src/fixtures/**',
+      ],
     }),
   ],
 
@@ -28,7 +33,7 @@ export default defineConfig({
     typecheck: {
       enabled: true,
       ignoreSourceErrors: true,
-      include: ['src/**/*.test.ts', 'src/**/*.tests-d.ts'],
+      include: ['src/**/*.test.ts', 'src/**/*.test-d.ts'],
     },
   },
 });

@@ -2,9 +2,9 @@ import { isDefined } from './isDefined';
 import type { ToArrayVitest_F, ToArray_F } from './types';
 
 export const toArrayVitest: ToArrayVitest_F = args => {
-  return args.map(({ expected, invite, parameters: params }) => {
+  return args.map(({ expected, invite, parameters: params, test }) => {
     const parameters = toArray(params);
-    return [invite, parameters, expected] as any;
+    return [invite, parameters, expected, test] as any;
   });
 };
 
@@ -26,4 +26,4 @@ export const toArray: ToArray_F = obj => {
   }
 };
 
-toArray.generic = obj => toArray(obj);
+toArray.generic = obj => toArray(obj) as any;

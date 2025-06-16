@@ -1,5 +1,8 @@
 import type { Fn, LengthOf } from '@bemedev/types';
 
+type ReR<F extends Fn> = Awaited<ReturnType<F>>;
+type TestFn<F extends Fn> = Fn<[ReR<F>, ReR<F>], void>;
+
 export type SimpleParams<F extends Fn, P extends any[] = Parameters<F>> =
   LengthOf<P> extends 0
     ? { parameters?: never }
@@ -13,13 +16,21 @@ export type SimpleParams<F extends Fn, P extends any[] = Parameters<F>> =
 
 export type TestArgs<F extends Fn> = ({
   invite: string;
-  expected: Awaited<ReturnType<F>>;
+  expected: ReR<F>;
+  /**
+   * Optional test function for specific cases
+   */
+  test?: TestFn<F>;
 } & SimpleParams<F>)[];
 
 export type TestArgs2<F extends Fn> = [
   invite: string,
   parameters: Parameters<F>,
-  expected: Awaited<ReturnType<F>>,
+  expected: ReR<F>,
+  /**
+   * Optional test function for specific cases
+   */
+  test?: TestFn<F>,
 ][];
 
 export type TestErrors<F extends Fn> = ({
@@ -65,5 +76,5 @@ export type Identity<F extends Fn> = Fn<[ReturnType<F>], ReturnType<F>>;
 
 export type ChainedFn<F extends Fn, T extends NextFn<F>> = Fn<
   Parameters<F>,
-  ReturnType<T>
+  ReR<T>
 >;

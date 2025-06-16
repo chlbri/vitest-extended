@@ -1,5 +1,5 @@
-import { expect, test } from 'vitest';
-import { identity } from '../identity';
+import { test } from 'vitest';
+import { defaultEquality, identity } from '../identity';
 import { toArrayVitest } from '../toArray';
 import type {
   _UseAsyncEach_F,
@@ -16,14 +16,13 @@ const useEachCases: _UseEach_F = (
   transform = identity as any,
   ...cases
 ) => {
-  test.concurrent.each(toArrayVitest(cases))('%s', (_, args, expected) => {
-    const value = transform(func(...args));
-    const checkArray = Array.isArray(value) && Array.isArray(expected);
-    if (checkArray) {
-      return expect(value.sort()).toStrictEqual(expected.sort());
-    }
-    return expect(value).toStrictEqual(expected);
-  });
+  test.concurrent.each(toArrayVitest(cases))(
+    '%s',
+    (_, args, expected, test = defaultEquality) => {
+      const value = transform(func(...args));
+      return test(value, expected);
+    },
+  );
 };
 
 // #endregion
@@ -66,13 +65,10 @@ const useEachAsyncCases: _UseAsyncEach_F = (
 ) => {
   test.concurrent.each(toArrayVitest(cases))(
     '%s',
-    async (_, args, expected) => {
-      const value = transform(await f(...args));
-      const checkArray = Array.isArray(value) && Array.isArray(expected);
-      if (checkArray) {
-        return expect(value.sort()).toStrictEqual(expected.sort());
-      }
-      return expect(value).toStrictEqual(expected);
+    async (_, args, expected, test = defaultEquality) => {
+      const _value = await f(...args);
+      const value = (transform(_value), expected);
+      return test(value, expected);
     },
   );
 };

@@ -3,6 +3,13 @@
 <br/>
 <br/>
 
+## **[1.3.4]** - _2025-06-16 14:45_
+
+### Fix
+
+- Add an option to presonalize the test function
+- 100% coverage
+
 ## **[1.3.3]** - _2025-06-15 19:57_
 
 ### Fix
