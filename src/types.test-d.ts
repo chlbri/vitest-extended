@@ -9,7 +9,7 @@ type Params1 = [string, ...number[]];
 type FN1 = HSP<Params1>;
 
 expectTypeOf<FN1>().toEqualTypeOf<{
-  parameters: string | Params1;
+  parameters?: string | Params1;
 }>();
 // #endregion
 

@@ -1,6 +1,6 @@
 {
   "name": "@bemedev/vitest-extended",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Extensions to build tests in vitest",
   "type": "module",
   "main": "lib/index.js",
@@ -44,7 +44,6 @@
     "size": "size-limit",
     "test:watch": "vitest",
     "upgrade": "pnpm upgrade --latest",
-    "approve": "pnpm approve-builds",
     "prepare": "husky"
   },
   "size-limit": [

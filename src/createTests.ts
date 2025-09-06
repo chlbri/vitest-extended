@@ -1,13 +1,16 @@
+import type { Fn } from '#bemedev/globals/types';
 import { beforeAll, vi } from 'vitest';
 import { useTFA } from './acceptation';
-import type { _CreateTests_F, CreateTests_F } from './createTests.types';
+import type { _CreateTests_F } from './createTests.types';
 import { useErrorAsyncEach } from './each/error';
+import type { ToError_F } from './each/error.types';
 import {
   useEachAsync,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type useEach,
 } from './each/pass';
 import { toStringFlat } from './toStringFlat';
+import type { Identity, NextFn } from './types';
 
 const _create: _CreateTests_F = (func, transform, toError, name) => {
   return {
@@ -84,14 +87,33 @@ const _create: _CreateTests_F = (func, transform, toError, name) => {
  *)
  *
  */
-export const createTests: CreateTests_F = (func, args) => {
+export const createTests = <
+  F extends Fn,
+  T extends NextFn<F> = Identity<F>,
+>(
+  func: F,
+  args?: { transform?: T; toError?: ToError_F<F> },
+) => {
   const { transform, toError } = args || {};
   return _create(func, transform, toError);
 };
 
-createTests.withImplementation = (
-  f,
-  { instanciation, name, transform, toError },
+createTests.withImplementation = <
+  F extends Fn,
+  T extends NextFn<F> = Identity<F>,
+>(
+  f: F,
+  {
+    instanciation,
+    name,
+    transform,
+    toError,
+  }: {
+    instanciation: () => Promise<F> | F;
+    name: string;
+    transform?: T;
+    toError?: ToError_F<F>;
+  },
 ) => {
   const func = vi.fn(f);
 
