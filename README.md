@@ -257,16 +257,9 @@ MIT
 
 <br/>
 
-## CHANGE_LOG
+## [CHANGE_LOG](CHANGE_LOG.md)
 
-<details>
-<summary>
-...
-</summary>
-
-[CHANGE_LOG](https://github.com/chlbri/vitest-extended/blob/main/CHANGE_LOG.md)
-
-</details>
+<br/>
 
 ## Auteur
 
