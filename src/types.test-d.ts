@@ -1,4 +1,4 @@
-import type { Fn } from '@bemedev/types';
+import type { Fn } from '#bemedev/globals/types';
 import { expectTypeOf } from 'vitest';
 import type { SimpleParams } from './types';
 

@@ -1,12 +1,12 @@
-import { maxLength, minLength, multiChar } from '@bemedev/basicfunc';
-import { t } from '@bemedev/types';
+import { _unknown } from '#bemedev/globals/utils/_unknown';
+import { maxLength, minLength, multiChar } from '@bemedev/basifun';
 import { describe } from 'vitest';
 import { createTests } from './createTests';
 
 describe('CreateTests - Coverage', () => {
   type Add_F = (numb1: number, numb2: number) => number;
   const add: Add_F = (numb1, numb2) => numb1 + numb2;
-  const addTest = t.unknown<Add_F>();
+  const addTest = _unknown<Add_F>();
 
   describe('#2 => CreateTests, funcTest is initialazed', () => {
     const { success, acceptation } = createTests.withImplementation(
@@ -93,7 +93,10 @@ describe('CreateTests - Coverage', () => {
         fails(
           { invite: 'Equals', parameters: [2, 're'] },
           { invite: 'More +1', parameters: [2, 'rer'] },
-          { invite: 'Less +6', parameters: [4, multiChar('d', 10)] },
+          {
+            invite: 'Less +6',
+            parameters: [4, multiChar('d', 10)],
+          },
         ),
       );
 

@@ -70,32 +70,50 @@ describe('Addition', () => {
 
 ```ts
 import { doneTest } from '@bemedev/vitest-extended';
-import { createMachine, interpret } from 'xstate';
+import { createMachine, interpret, typings } from 'xstate';
 
-const machine = createMachine({
-  id: 'my-machine',
-  initial: 'idle',
-  states: {
-    idle: {
-      on: {
-        START: 'running',
+const machine = createMachine(
+  {
+    id: 'my-machine',
+    initial: 'idle',
+    states: {
+      idle: {
+        on: {
+          START: '/running',
+        },
       },
-    },
-    running: {
-      on: {
-        STOP: 'idle',
-        FINISH: 'done',
+      running: {
+        on: {
+          STOP: '/idle',
+          FINISH: '/done',
+        },
       },
+      done: { entry: 'onDone' },
     },
-    done: { type: 'final' },
   },
-});
+  typings({
+    context: 'boolean',
+    eventsMap: {
+      START: 'primitive',
+      STOP: 'primitive',
+      FINISH: 'primitive',
+    },
+  }),
+);
 
 doneTest('test avec done', done => {
-  setTimeout(() => {
-    expect(true).toBe(true);
-    done();
-  }, 100);
+  const service = interpret(machine, { context: false });
+  service.addOptions(({ voidAction }) => ({
+    actions: {
+      onDone: voidAction(done),
+    },
+  }));
+
+  service.start();
+  service.send('START');
+  service.send('STOP');
+  service.send('START');
+  service.send('FINISH');
 });
 ```
 

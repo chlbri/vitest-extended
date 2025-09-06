@@ -28,12 +28,12 @@ describe('#3 => addMany - to cov', () => {
     {
       expected: 1,
       invite: '1',
-      parameters: [1],
+      parameters: 1,
     },
     {
       expected: 10,
       invite: '10',
-      parameters: [10],
+      parameters: 10,
     },
     {
       expected: 45,

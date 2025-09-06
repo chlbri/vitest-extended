@@ -1,4 +1,4 @@
-import type { Fn } from '@bemedev/types';
+import type { Fn } from '#bemedev/globals/types';
 import { describe, expect, test } from 'vitest';
 import { z } from 'zod';
 import { useTFA } from '../acceptation';

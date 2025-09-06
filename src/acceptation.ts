@@ -1,4 +1,4 @@
-import type { Fn } from '@bemedev/types';
+import type { Fn } from '#bemedev/globals/types';
 import { expect, test } from 'vitest';
 import { isFunction } from './isFunction';
 

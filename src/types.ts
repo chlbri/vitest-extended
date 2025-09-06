@@ -1,7 +1,8 @@
-import type { Fn, LengthOf } from '@bemedev/types';
+import type { Fn } from '#bemedev/globals/types';
 
 type ReR<F extends Fn> = Awaited<ReturnType<F>>;
 type TestFn<F extends Fn> = Fn<[ReR<F>, ReR<F>], void>;
+type LengthOf<T> = T extends readonly any[] ? T['length'] : never;
 
 export type SimpleParams<F extends Fn, P extends any[] = Parameters<F>> =
   LengthOf<P> extends 0

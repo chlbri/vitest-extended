@@ -1,4 +1,4 @@
-import type { Fn } from '@bemedev/types';
+import type { Fn } from '#bemedev/globals/types';
 import type { Mock } from 'vitest';
 import type { ToError_F } from './each/error.types';
 import type {
