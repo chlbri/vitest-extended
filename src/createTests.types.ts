@@ -25,7 +25,7 @@ export type _CreateTests_F = <
   name?: string,
 ) => ReturnR<ChainedFn<F, T>>;
 
-export interface CreateTests_F {
+export type CreateTests_F = {
   <F extends Fn, T extends NextFn<F> = Identity<F>>(
     func: F,
     options?: { transform?: T; toError?: ToError_F<F> },
@@ -45,4 +45,4 @@ export interface CreateTests_F {
     func: F,
     options?: { transform?: T; toError?: ToError_F<F> },
   ) => ReturnR<ChainedFn<F, T>>;
-}
+};
