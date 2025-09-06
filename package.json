@@ -1,6 +1,6 @@
 {
   "name": "@bemedev/vitest-extended",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Extensions to build tests in vitest",
   "type": "module",
   "main": "lib/index.js",
@@ -83,7 +83,7 @@
   "devDependencies": {
     "@bemedev/app-ts": "^0.9.21",
     "@bemedev/basifun": "^0.5.3",
-    "@bemedev/rollup-config": "^0.2.0",
+    "@bemedev/rollup-config": "^0.2.1",
     "@bemedev/vitest-alias": "^0.0.3",
     "@bemedev/vitest-exclude": "^0.1.1",
     "@eslint/eslintrc": "^3.3.1",

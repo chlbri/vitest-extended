@@ -19,8 +19,8 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3
       '@bemedev/rollup-config':
-        specifier: ^0.2.0
-        version: 0.2.0(glob@11.0.3)(rollup@4.50.0)(typescript@5.9.2)
+        specifier: ^0.2.1
+        version: 0.2.1(glob@11.0.3)(rollup@4.50.0)(typescript@5.9.2)
       '@bemedev/vitest-alias':
         specifier: ^0.0.3
         version: 0.0.3(vitest@3.2.4(@types/node@24.3.1)(jiti@2.5.1)(terser@5.44.0)(tsx@4.20.5))
@@ -180,8 +180,8 @@ packages:
     resolution: {integrity: sha512-RWbferVoFH0CkpeNZ7DW2MFdl04clqp4Q9WaiQAqlW8kgsizQltXhy780QDtWkQi+cRLWZ9j/ItYcVJ1nr+vDQ==}
     engines: {node: '>=20'}
 
-  '@bemedev/rollup-config@0.2.0':
-    resolution: {integrity: sha512-AO2ZG2OL3ebsmsfbkg4CxJfBFkIWDGWtmmT4hgupcK+B6ifTa9VBnwPDtuHnEAwhtOo5a+88JIFImyiPK886xQ==}
+  '@bemedev/rollup-config@0.2.1':
+    resolution: {integrity: sha512-cfW97NimFu7J91DCcKkRAYV3AWl3pYm4CC+HIujWsrlotnUMJ7xAT0O6i0RFSkQKM81HY2XdH8DlcEGmQIZihA==}
     engines: {node: '>=22'}
     peerDependencies:
       glob: ^11.0.1
@@ -1869,7 +1869,7 @@ snapshots:
     dependencies:
       '@bemedev/sleep': 0.1.2
 
-  '@bemedev/rollup-config@0.2.0(glob@11.0.3)(rollup@4.50.0)(typescript@5.9.2)':
+  '@bemedev/rollup-config@0.2.1(glob@11.0.3)(rollup@4.50.0)(typescript@5.9.2)':
     dependencies:
       glob: 11.0.3
       rollup: 4.50.0

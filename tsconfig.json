@@ -1,12 +1,7 @@
 {
-  "include": [
-    "src/**/*"
-  ],
+  "include": ["src/**/*", "src/bemedev"],
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "importHelpers": true,
     "target": "ESNext",
     "module": "ESNext",
@@ -27,11 +22,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "declarationMap": true,
+    "baseUrl": ".",
     "paths": {
-      "#bemedev/*": [
-        "src/.bemedev/*"
-      ]
-    },
-    "baseUrl": "."
+      "#bemedev/*": ["src/bemedev/*"]
+    }
   }
 }
